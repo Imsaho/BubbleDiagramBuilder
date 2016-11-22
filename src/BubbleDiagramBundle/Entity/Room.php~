@@ -4,6 +4,7 @@ namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use BubbleDiagramBundle\Entity\Level;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Room
@@ -89,6 +90,25 @@ class Room
      * @ORM\JoinColumn(name="zone_id", referencedColumnName="id")
      */
     private $zone;
+    
+    /**
+     * 
+     * @ORM\ManyToMany(targetEntity="Room", mappedBy="myRooms")
+     */
+    private $roomsWithMe;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Room", inversedBy="roomsWithMe")
+     * @ORM\JoinTable(name="joined_rooms", 
+     * joinColumns={@ORM\JoinColumn(name="room_id", referencedColumnName="id")}, 
+     * inverseJoinColumns={@ORM\JoinColumn(name="joined_room_id", referencedColumnName="id")})
+     */
+    private $myRooms;
+    
+    public function __construct() {
+        $this->roomsWithMe = new ArrayCollection();
+        $this->myRooms = new ArrayCollection();
+    }
 
 
     /**
@@ -306,5 +326,28 @@ class Room
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set zone
+     *
+     * @param \BubbleDiagramBundle\Entity\Zone $zone
+     * @return Room
+     */
+    public function setZone(\BubbleDiagramBundle\Entity\Zone $zone = null)
+    {
+        $this->zone = $zone;
+
+        return $this;
+    }
+
+    /**
+     * Get zone
+     *
+     * @return \BubbleDiagramBundle\Entity\Zone 
+     */
+    public function getZone()
+    {
+        return $this->zone;
     }
 }

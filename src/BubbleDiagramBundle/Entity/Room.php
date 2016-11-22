@@ -4,6 +4,7 @@ namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use BubbleDiagramBundle\Entity\Level;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Room
@@ -89,6 +90,25 @@ class Room
      * @ORM\JoinColumn(name="zone_id", referencedColumnName="id")
      */
     private $zone;
+    
+    /**
+     * 
+     * @ORM\ManyToMany(targetEntity="Room", mappedBy="myRooms")
+     */
+    private $roomsWithMe;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Room", inversedBy="roomsWithMe")
+     * @ORM\JoinTable(name="joined_rooms", 
+     * joinColumns={@ORM\JoinColumn(name="room_id", referencedColumnName="id")}, 
+     * inverseJoinColumns={@ORM\JoinColumn(name="joined_room_id", referencedColumnName="id")})
+     */
+    private $myRooms;
+    
+    public function __construct() {
+        $this->roomsWithMe = new ArrayCollection();
+        $this->myRooms = new ArrayCollection();
+    }
 
 
     /**
@@ -329,5 +349,75 @@ class Room
     public function getZone()
     {
         return $this->zone;
+    }
+
+    /**
+     * Add roomsWithMe
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $roomsWithMe
+     * @return Room
+     */
+    public function addRoomsWithMe(\BubbleDiagramBundle\Entity\Room $roomsWithMe)
+    {
+        $this->roomsWithMe[] = $roomsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove roomsWithMe
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $roomsWithMe
+     */
+    public function removeRoomsWithMe(\BubbleDiagramBundle\Entity\Room $roomsWithMe)
+    {
+        $this->roomsWithMe->removeElement($roomsWithMe);
+    }
+
+    /**
+     * Get roomsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoomsWithMe()
+    {
+        return $this->roomsWithMe;
+    }
+
+    /**
+     * Add myRooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $myRooms
+     * @return Room
+     */
+    public function addMyRoom(\BubbleDiagramBundle\Entity\Room $myRooms)
+    {
+        $this->myRooms[] = $myRooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove myRooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $myRooms
+     */
+    public function removeMyRoom(\BubbleDiagramBundle\Entity\Room $myRooms)
+    {
+        $this->myRooms->removeElement($myRooms);
+    }
+
+    /**
+     * Get myRooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyRooms()
+    {
+        return $this->myRooms;
+    }
+    
+    public function __toString() {
+        return $this->name;
     }
 }

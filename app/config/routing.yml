@@ -1,0 +1,5 @@
+bubble_diagram:
+    resource: "@BubbleDiagramBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

@@ -24,6 +24,13 @@ class Team
     private $id;
     
     /**
+     * @var string
+     * 
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    private $name;
+    
+    /**
      *
      * @ORM\OneToOne(targetEntity="Building", mappedBy="team")
      */
@@ -81,5 +88,32 @@ class Team
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Set building
+     *
+     * @param \BubbleDiagramBundle\Entity\Building $building
+     * @return Team
+     */
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
+    {
+        $this->building = $building;
+
+        return $this;
+    }
+
+    /**
+     * Get building
+     *
+     * @return \BubbleDiagramBundle\Entity\Building 
+     */
+    public function getBuilding()
+    {
+        return $this->building;
+    }
+    
+    public function __toString() {
+        return $this->name;
     }
 }

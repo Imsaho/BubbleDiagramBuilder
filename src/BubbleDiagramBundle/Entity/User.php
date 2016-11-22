@@ -136,4 +136,8 @@ class User
     {
         return $this->teams;
     }
+    
+    public function __toString() {
+        return $this->email;
+    }
 }

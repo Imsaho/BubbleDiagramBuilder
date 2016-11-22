@@ -304,4 +304,8 @@ class Building {
     {
         return $this->levels;
     }
+    
+    public function __toString() {
+        return $this->name;
+    }
 }

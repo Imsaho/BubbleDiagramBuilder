@@ -13,7 +13,7 @@ class RoomType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number')->add('name')->add('area')->add('minHeight')->add('requirements')->add('description')->add('maxPersonAmount')->add('accessControl')->add('level')->add('zone')->add('roomsWithMe')->add('myRooms')        ;
+        $builder->add('number')->add('name')->add('area')->add('minHeight')->add('requirements')->add('description')->add('maxPersonAmount')->add('accessControl')->add('level')->add('zone')->add('myRooms')        ;
     }
     
     /**

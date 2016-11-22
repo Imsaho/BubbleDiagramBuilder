@@ -3,6 +3,7 @@
 namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Building
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="building")
  * @ORM\Entity(repositoryClass="BubbleDiagramBundle\Repository\BuildingRepository")
  */
-class Building
-{
+class Building {
+
     /**
      * @var int
      *
@@ -62,21 +63,34 @@ class Building
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Team", inversedBy="building")
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
     private $team;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Zone", mappedBy="building")
+     */
+    private $zones;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Level", mappedBy="building")
+     */
+    private $levels;
+
+    public function __construct() {
+        $this->zones = new ArrayCollection();
+        $this->levels = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -86,8 +100,7 @@ class Building
      * @param string $name
      * @return Building
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -98,8 +111,7 @@ class Building
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -109,8 +121,7 @@ class Building
      * @param float $GBA
      * @return Building
      */
-    public function setGBA($GBA)
-    {
+    public function setGBA($GBA) {
         $this->GBA = $GBA;
 
         return $this;
@@ -121,8 +132,7 @@ class Building
      *
      * @return float 
      */
-    public function getGBA()
-    {
+    public function getGBA() {
         return $this->GBA;
     }
 
@@ -132,8 +142,7 @@ class Building
      * @param float $NBA
      * @return Building
      */
-    public function setNBA($NBA)
-    {
+    public function setNBA($NBA) {
         $this->NBA = $NBA;
 
         return $this;
@@ -144,8 +153,7 @@ class Building
      *
      * @return float 
      */
-    public function getNBA()
-    {
+    public function getNBA() {
         return $this->NBA;
     }
 
@@ -155,8 +163,7 @@ class Building
      * @param float $NBAFactor
      * @return Building
      */
-    public function setNBAFactor($NBAFactor)
-    {
+    public function setNBAFactor($NBAFactor) {
         $this->NBAFactor = $NBAFactor;
 
         return $this;
@@ -167,8 +174,7 @@ class Building
      *
      * @return float 
      */
-    public function getNBAFactor()
-    {
+    public function getNBAFactor() {
         return $this->NBAFactor;
     }
 
@@ -178,8 +184,7 @@ class Building
      * @param string $coordinates
      * @return Building
      */
-    public function setCoordinates($coordinates)
-    {
+    public function setCoordinates($coordinates) {
         $this->coordinates = $coordinates;
 
         return $this;
@@ -190,8 +195,7 @@ class Building
      *
      * @return string 
      */
-    public function getCoordinates()
-    {
+    public function getCoordinates() {
         return $this->coordinates;
     }
 
@@ -201,8 +205,7 @@ class Building
      * @param string $description
      * @return Building
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -213,8 +216,7 @@ class Building
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -224,8 +226,7 @@ class Building
      * @param \BubbleDiagramBundle\Entity\Team $team
      * @return Building
      */
-    public function setTeam(\BubbleDiagramBundle\Entity\Team $team = null)
-    {
+    public function setTeam(\BubbleDiagramBundle\Entity\Team $team = null) {
         $this->team = $team;
 
         return $this;
@@ -236,8 +237,71 @@ class Building
      *
      * @return \BubbleDiagramBundle\Entity\Team 
      */
-    public function getTeam()
-    {
+    public function getTeam() {
         return $this->team;
+    }
+
+    /**
+     * Add zones
+     *
+     * @param \BubbleDiagramBundle\Entity\Zone $zones
+     * @return Building
+     */
+    public function addZone(\BubbleDiagramBundle\Entity\Zone $zones) {
+        $this->zones[] = $zones;
+
+        return $this;
+    }
+
+    /**
+     * Remove zones
+     *
+     * @param \BubbleDiagramBundle\Entity\Zone $zones
+     */
+    public function removeZone(\BubbleDiagramBundle\Entity\Zone $zones) {
+        $this->zones->removeElement($zones);
+    }
+
+    /**
+     * Get zones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getZones() {
+        return $this->zones;
+    }
+
+
+    /**
+     * Add levels
+     *
+     * @param \BubbleDiagramBundle\Entity\Level $levels
+     * @return Building
+     */
+    public function addLevel(\BubbleDiagramBundle\Entity\Level $levels)
+    {
+        $this->levels[] = $levels;
+
+        return $this;
+    }
+
+    /**
+     * Remove levels
+     *
+     * @param \BubbleDiagramBundle\Entity\Level $levels
+     */
+    public function removeLevel(\BubbleDiagramBundle\Entity\Level $levels)
+    {
+        $this->levels->removeElement($levels);
+    }
+
+    /**
+     * Get levels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLevels()
+    {
+        return $this->levels;
     }
 }

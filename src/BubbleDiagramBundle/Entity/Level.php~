@@ -3,6 +3,8 @@
 namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use BubbleDiagramBundle\Entity\Room;
 
 /**
  * Level
@@ -41,7 +43,21 @@ class Level
      * @ORM\Column(name="color", type="string", length=16, unique=true)
      */
     private $color;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Building", inversedBy="levels")
+     * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
+     */
+    private $building;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="level")
+     */
+    private $rooms;
 
+    public function __construct() {
+        $this->rooms = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -120,5 +136,28 @@ class Level
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Set building
+     *
+     * @param \BubbleDiagramBundle\Entity\Building $building
+     * @return Level
+     */
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
+    {
+        $this->building = $building;
+
+        return $this;
+    }
+
+    /**
+     * Get building
+     *
+     * @return \BubbleDiagramBundle\Entity\Building 
+     */
+    public function getBuilding()
+    {
+        return $this->building;
     }
 }

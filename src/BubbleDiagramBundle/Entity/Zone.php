@@ -3,6 +3,7 @@
 namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Zone
@@ -41,6 +42,21 @@ class Zone
      * @ORM\Column(name="color", type="string", length=16, unique=true)
      */
     private $color;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Building", inversedBy="zones")
+     * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
+     */
+    private $building;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="zone")
+     */
+    private $rooms;
+    
+    public function __construct() {
+        $this->rooms = new ArrayCollection();
+    }
 
 
     /**
@@ -120,5 +136,61 @@ class Zone
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Set building
+     *
+     * @param \BubbleDiagramBundle\Entity\Building $building
+     * @return Zone
+     */
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
+    {
+        $this->building = $building;
+
+        return $this;
+    }
+
+    /**
+     * Get building
+     *
+     * @return \BubbleDiagramBundle\Entity\Building 
+     */
+    public function getBuilding()
+    {
+        return $this->building;
+    }
+
+    /**
+     * Add rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     * @return Zone
+     */
+    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms[] = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     */
+    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms->removeElement($rooms);
+    }
+
+    /**
+     * Get rooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
     }
 }

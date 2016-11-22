@@ -3,6 +3,7 @@
 namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use BubbleDiagramBundle\Entity\Level;
 
 /**
  * Room
@@ -76,6 +77,18 @@ class Room
      * @ORM\Column(name="access_control", type="boolean", nullable=true)
      */
     private $accessControl;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Level", inversedBy="rooms")
+     * @ORM\JoinColumn(name="level_id", referencedColumnName="id")
+     */
+    private $level;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Zone", inversedBy="rooms")
+     * @ORM\JoinColumn(name="zone_id", referencedColumnName="id")
+     */
+    private $zone;
 
 
     /**
@@ -270,5 +283,28 @@ class Room
     public function getAccessControl()
     {
         return $this->accessControl;
+    }
+
+    /**
+     * Set level
+     *
+     * @param \BubbleDiagramBundle\Entity\Level $level
+     * @return Room
+     */
+    public function setLevel(\BubbleDiagramBundle\Entity\Level $level = null)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return \BubbleDiagramBundle\Entity\Level 
+     */
+    public function getLevel()
+    {
+        return $this->level;
     }
 }

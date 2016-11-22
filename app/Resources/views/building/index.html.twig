@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Buildings list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gba</th>
+                <th>Nba</th>
+                <th>Nbafactor</th>
+                <th>Coordinates</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for building in buildings %}
+            <tr>
+                <td><a href="{{ path('building_show', { 'id': building.id }) }}">{{ building.id }}</a></td>
+                <td>{{ building.name }}</td>
+                <td>{{ building.GBA }}</td>
+                <td>{{ building.NBA }}</td>
+                <td>{{ building.NBAFactor }}</td>
+                <td>{{ building.coordinates }}</td>
+                <td>{{ building.description }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('building_show', { 'id': building.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('building_edit', { 'id': building.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('building_new') }}">Create a new building</a>
+        </li>
+    </ul>
+{% endblock %}

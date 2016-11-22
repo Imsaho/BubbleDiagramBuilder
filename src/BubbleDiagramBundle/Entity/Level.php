@@ -193,4 +193,8 @@ class Level
     {
         return $this->rooms;
     }
+    
+    public function __toString() {
+        return $this->name;
+    }
 }

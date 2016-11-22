@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header %}Użytkownik{% endblock page_header %}
+{% block small_header %}dodaj{% endblock small_header %}
+
 {% block body %}
-    <h1>User creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<input type="submit" value="Create" />
+{{ form_end(form) }}
+
+<ul>
+    <li>
+        <a href="{{ path('user_index') }}">Back to the list</a>
+    </li>
+</ul>
 {% endblock %}

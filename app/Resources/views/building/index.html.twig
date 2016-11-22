@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header %}Budynek{% endblock page_header %}
+{% block small_header %}wszystkie{% endblock small_header %}
+
 {% block body %}
-    <h1>Buildings list</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Gba</th>
-                <th>Nba</th>
-                <th>Nbafactor</th>
-                <th>Coordinates</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>GBA</th>
+                <th>NBA</th>
+                <th>współczynnik NBA</th>
+                <th>Współrzędne</th>
+                <th>Opis</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +31,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('building_show', { 'id': building.id }) }}">show</a>
+                            <a href="{{ path('building_show', { 'id': building.id }) }}">szczegóły</a>
                         </li>
                         <li>
-                            <a href="{{ path('building_edit', { 'id': building.id }) }}">edit</a>
+                            <a href="{{ path('building_edit', { 'id': building.id }) }}">edytuj</a>
                         </li>
                     </ul>
                 </td>
@@ -43,7 +45,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('building_new') }}">Create a new building</a>
+            <a href="{{ path('building_new') }}">Dodaj nowy budynek</a>
         </li>
     </ul>
 {% endblock %}

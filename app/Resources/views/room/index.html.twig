@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
+{% block page_header %}Pomieszczenie{% endblock page_header %}
+{% block small_header %}wszystkie{% endblock small_header %}
+
 {% block body %}
-    <h1>Rooms list</h1>
 
     <table>
         <thead>
@@ -19,29 +22,29 @@
             </tr>
         </thead>
         <tbody>
-        {% for room in rooms %}
-            <tr>
-                <td><a href="{{ path('room_show', { 'id': room.id }) }}">{{ room.id }}</a></td>
-                <td>{{ room.number }}</td>
-                <td>{{ room.name }}</td>
-                <td>{{ room.area }}</td>
-                <td>{{ room.minHeight }}</td>
-                <td>{{ room.requirements }}</td>
-                <td>{{ room.description }}</td>
-                <td>{{ room.maxPersonAmount }}</td>
-                <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for room in rooms %}
+                <tr>
+                    <td><a href="{{ path('room_show', { 'id': room.id }) }}">{{ room.id }}</a></td>
+                    <td>{{ room.number }}</td>
+                    <td>{{ room.name }}</td>
+                    <td>{{ room.area }}</td>
+                    <td>{{ room.minHeight }}</td>
+                    <td>{{ room.requirements }}</td>
+                    <td>{{ room.description }}</td>
+                    <td>{{ room.maxPersonAmount }}</td>
+                    <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
+{% block page_header %}Pomieszczenie{% endblock page_header %}
+{% block small_header %}szczegóły{% endblock small_header %}
+
 {% block body %}
-    <h1>Room</h1>
 
     <table>
         <tbody>
@@ -53,7 +56,7 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

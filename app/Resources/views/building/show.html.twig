@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header %}Budynek{% endblock page_header %}
+{% block small_header %}szczegóły{% endblock small_header %}
+
 {% block body %}
-    <h1>Building</h1>
 
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <td>{{ building.id }}</td>
             </tr>
             <tr>
@@ -14,23 +16,23 @@
                 <td>{{ building.name }}</td>
             </tr>
             <tr>
-                <th>Gba</th>
+                <th>GBA</th>
                 <td>{{ building.GBA }}</td>
             </tr>
             <tr>
-                <th>Nba</th>
+                <th>NBA</th>
                 <td>{{ building.NBA }}</td>
             </tr>
             <tr>
-                <th>Nbafactor</th>
+                <th>współczynnik NBA</th>
                 <td>{{ building.NBAFactor }}</td>
             </tr>
             <tr>
-                <th>Coordinates</th>
+                <th>Współrzędne</th>
                 <td>{{ building.coordinates }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>Opis</th>
                 <td>{{ building.description }}</td>
             </tr>
         </tbody>
@@ -38,14 +40,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('building_index') }}">Back to the list</a>
+            <a href="{{ path('building_index') }}">Powrót do listy</a>
         </li>
         <li>
-            <a href="{{ path('building_edit', { 'id': building.id }) }}">Edit</a>
+            <a href="{{ path('building_edit', { 'id': building.id }) }}">Edytuj</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Usuń">
             {{ form_end(delete_form) }}
         </li>
     </ul>

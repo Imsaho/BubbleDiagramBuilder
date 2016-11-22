@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header %}Budynek{% endblock page_header %}
+{% block small_header %}dodaj{% endblock small_header %}
+
 {% block body %}
-    <h1>Building creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}

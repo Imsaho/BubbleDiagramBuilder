@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <th>Współrzędne</th>
-                        <td>{{ building.coordinates }}</td>
+                        <td><a href="http://www.google.com/maps/place/{{building.coordinates}}" target="_blank">{{ building.coordinates }}</a></td>
                     </tr>
                     <tr>
                         <th>Opis</th>
@@ -49,11 +49,10 @@
             <li>
                 <a href="{{ path('building_edit', { 'id': building.id }) }}">Edytuj</a>
             </li>
-            <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Usuń">
-                {{ form_end(delete_form) }}
-            </li>
+
         </ul>
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Usuń">
+        {{ form_end(delete_form) }}
     </div>
 {% endblock %}

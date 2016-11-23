@@ -197,4 +197,10 @@ class Level
     public function __toString() {
         return $this->name;
     }
+    
+//    public function calculateLevelNBA() {
+//        foreach ($this->rooms as $room) {
+//            $room->get
+//        }
+//    }
 }

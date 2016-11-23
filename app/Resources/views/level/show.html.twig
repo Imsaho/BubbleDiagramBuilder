@@ -26,6 +26,16 @@
                         <th>Color</th>
                         <td>{{ level.color }}</td>
                     </tr>
+                    <tr>
+                        <th>Pomieszczenia</th>
+                        <td>
+                            <ul>
+                                {% for room in level.rooms %}
+                                    <li>{{ room.number }} | {{ room.name }} | {{ room.area }} m<sup>2</sup></li>
+                                    {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -10,26 +10,31 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
-                        <th>GBA</th>
-                        <th>NBA</th>
-                        <th>współczynnik NBA</th>
                         <th>Współrzędne</th>
-                        <th>Opis</th>
+                        <th>Pomieszczenia</th>
+
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for building in buildings %}
                         <tr>
-                            <td><a href="{{ path('building_show', { 'id': building.id }) }}">{{ building.id }}</a></td>
                             <td>{{ building.name }}</td>
-                            <td>{{ building.GBA }}</td>
-                            <td>{{ building.NBA }}</td>
-                            <td>{{ building.NBAFactor }}</td>
-                            <td>{{ building.coordinates }}</td>
-                            <td>{{ building.description }}</td>
+                            <td>
+                                <a href="http://www.google.com/maps/place/{{building.coordinates}}" target="_blank">{{ building.coordinates }}</a>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('all_rooms_by_level', { 'id': building.id }) }}">wg kondygnacji</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('all_rooms_by_zone', { 'id': building.id }) }}">wg strefy</a>
+                                    </li>
+                                </ul>
+                            </td>
                             <td>
                                 <ul>
                                     <li>
@@ -46,10 +51,11 @@
             </table>
         </div>
     </div>
-
-    <ul>
-        <li>
-            <a href="{{ path('building_new') }}">Dodaj nowy budynek</a>
-        </li>
-    </ul>
+    <div class="col-lg-12">
+        <ul>
+            <li>
+                <a href="{{ path('building_new') }}">Dodaj nowy budynek</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

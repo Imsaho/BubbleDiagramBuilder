@@ -5,29 +5,32 @@ namespace BubbleDiagramBundle\Controller;
 use BubbleDiagramBundle\Entity\Building;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use BubbleDiagramBundle\Entity\Room;
 
 /**
  * Building controller.
  *
  * @Route("building")
  */
-class BuildingController extends Controller
-{
+class BuildingController extends Controller {
+
     /**
      * Lists all building entities.
      *
      * @Route("/", name="building_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $buildings = $em->getRepository('BubbleDiagramBundle:Building')->findAll();
 
         return $this->render('building/index.html.twig', array(
-            'buildings' => $buildings,
+                    'buildings' => $buildings,
         ));
     }
 
@@ -37,8 +40,7 @@ class BuildingController extends Controller
      * @Route("/new", name="building_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $building = new Building();
         $form = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $form->handleRequest($request);
@@ -48,12 +50,13 @@ class BuildingController extends Controller
             $em->persist($building);
             $em->flush($building);
 
-            return $this->redirectToRoute('building_show', array('id' => $building->getId()));
+            return $this->redirectToRoute('building_show', array(
+                        'id' => $building->getId()));
         }
 
         return $this->render('building/new.html.twig', array(
-            'building' => $building,
-            'form' => $form->createView(),
+                    'building' => $building,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -63,13 +66,12 @@ class BuildingController extends Controller
      * @Route("/{id}", name="building_show")
      * @Method("GET")
      */
-    public function showAction(Building $building)
-    {
+    public function showAction(Building $building) {
         $deleteForm = $this->createDeleteForm($building);
 
         return $this->render('building/show.html.twig', array(
-            'building' => $building,
-            'delete_form' => $deleteForm->createView(),
+                    'building' => $building,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -79,8 +81,7 @@ class BuildingController extends Controller
      * @Route("/{id}/edit", name="building_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Building $building)
-    {
+    public function editAction(Request $request, Building $building) {
         $deleteForm = $this->createDeleteForm($building);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);
@@ -88,13 +89,14 @@ class BuildingController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('building_edit', array('id' => $building->getId()));
+            return $this->redirectToRoute('building_edit', array(
+                        'id' => $building->getId()));
         }
 
         return $this->render('building/edit.html.twig', array(
-            'building' => $building,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'building' => $building,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -104,8 +106,7 @@ class BuildingController extends Controller
      * @Route("/{id}", name="building_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Building $building)
-    {
+    public function deleteAction(Request $request, Building $building) {
         $form = $this->createDeleteForm($building);
         $form->handleRequest($request);
 
@@ -125,12 +126,38 @@ class BuildingController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Building $building)
-    {
+    private function createDeleteForm(Building $building) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('building_delete', array('id' => $building->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('building_delete', array(
+                                    'id' => $building->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
+    /**
+     * Redirects to page with all building rooms selected by level
+     * 
+     * @Route("/{id}/room/byLevel", name="all_rooms_by_level")
+     * @Template()
+     */
+    public function showRoomsByLevel() {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findAll();
+
+        return array(
+            'rooms' => $rooms);
+    }
+
+    /**
+     * Redirects to page with all building rooms selected by zone
+     * 
+     * @Route("/{id}/room/byZone", name="all_rooms_by_zone")
+     */
+    public function showRoomsByZone() {
+        return new Response("all rooms by zone");
+    }
+
 }

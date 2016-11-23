@@ -11,8 +11,8 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ team.id }}</td>
+                        <th>Name</th>
+                        <td>{{ team.name }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -27,11 +27,10 @@
             <li>
                 <a href="{{ path('team_edit', { 'id': team.id }) }}">Edit</a>
             </li>
-            <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-            </li>
+
         </ul>
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Delete">
+        {{ form_end(delete_form) }}
     </div>
 {% endblock %}

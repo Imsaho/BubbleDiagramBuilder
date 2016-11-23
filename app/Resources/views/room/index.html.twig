@@ -13,6 +13,7 @@
 
                     <th>Numer</th>
                     <th>Kondygnacja</th>
+                    <th>Strefa</th>
                     <th>Nazwa</th>
                     <th>Powierzchnia [m<sup>2</sup>]</th>
 
@@ -28,6 +29,7 @@
 
                         <td>{{ room.number }}</td>
                         <td>{{ room.level.name }}</td>
+                        <td bgcolor="{{ room.zone.color }}"></td>
                         <td>{{ room.name }}</td>
                         <td>{{ room.area }}</td>
 

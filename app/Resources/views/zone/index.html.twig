@@ -14,7 +14,7 @@
                         <th>ID</th>
                         <th>Nazwa</th>
 
-                        <th>#Kolor</th>
+                        <th># kolor</th>
                         <th>Pomieszczenia</th>
                         <th></th>
                     </tr>
@@ -25,7 +25,7 @@
                             <td><a href="{{ path('zone_show', { 'id': zone.id }) }}">{{ zone.id }}</a></td>
                             <td>{{ zone.name }}</td>
 
-                            <td>{{ zone.color }}</td>
+                            <td bgcolor="{{ zone.color }}"></td>
                             <td>
                                 <ul>
                                     <li><a href="{{ path('all_rooms_in_zone', { 'id': zone.id }) }}">pokaż wszystkie</a></li>

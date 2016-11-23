@@ -4,44 +4,48 @@
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block body %}
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class ="table table-hover">
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>GBA</th>
-                <th>NBA</th>
-                <th>współczynnik NBA</th>
-                <th>Współrzędne</th>
-                <th>Opis</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for building in buildings %}
-            <tr>
-                <td><a href="{{ path('building_show', { 'id': building.id }) }}">{{ building.id }}</a></td>
-                <td>{{ building.name }}</td>
-                <td>{{ building.GBA }}</td>
-                <td>{{ building.NBA }}</td>
-                <td>{{ building.NBAFactor }}</td>
-                <td>{{ building.coordinates }}</td>
-                <td>{{ building.description }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('building_show', { 'id': building.id }) }}">szczegóły</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('building_edit', { 'id': building.id }) }}">edytuj</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>GBA</th>
+                        <th>NBA</th>
+                        <th>współczynnik NBA</th>
+                        <th>Współrzędne</th>
+                        <th>Opis</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for building in buildings %}
+                        <tr>
+                            <td><a href="{{ path('building_show', { 'id': building.id }) }}">{{ building.id }}</a></td>
+                            <td>{{ building.name }}</td>
+                            <td>{{ building.GBA }}</td>
+                            <td>{{ building.NBA }}</td>
+                            <td>{{ building.NBAFactor }}</td>
+                            <td>{{ building.coordinates }}</td>
+                            <td>{{ building.description }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('building_show', { 'id': building.id }) }}">szczegóły</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('building_edit', { 'id': building.id }) }}">edytuj</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <ul>
         <li>

@@ -11,21 +11,26 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ zone.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ zone.name }}</td>
+                        <th bgcolor="{{ zone.color }}"></th>
+                        <td bgcolor="{{ zone.color }}">{{ zone.name }}</td>
                     </tr>
                     <tr>
                         <th>Description</th>
                         <td>{{ zone.description }}</td>
                     </tr>
                     <tr>
-                        <th>Color</th>
-                        <td>{{ zone.color }}</td>
+                        <th>zone NBA</th>
+                        <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
                     </tr>
+                    <tr>
+                        <th>Pomieszczenia</th>
+                        <td>
+                                                            {% for room in zone.rooms %}
+                                    <li>{{ room.number }} | {{ room.name }} | {{ room.area }} m<sup>2</sup></li>
+                                    {% endfor %}
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>

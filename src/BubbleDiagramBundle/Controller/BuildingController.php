@@ -16,6 +16,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class BuildingController extends Controller {
 
+    private function checkCurrentUser($id) {
+        $currentUser = $this->getUser();
+        $currentUserId = $currentUser->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
+        $teamId = $building->getTeam()->getId();
+        $team = $em->getRepository("BubbleDiagramBundle:Team")->find($teamId);
+        //$teamUsers = $team->getUsers();
+        dump($team); die();
+        if ($teamUsers != null) {
+            foreach ($teamUsers as $user) {
+                if ($user->getId() != $currentUserId) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Lists all building entities.
      *
@@ -26,6 +49,8 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $buildings = $em->getRepository('BubbleDiagramBundle:Building')->findAll();
+
+
 
         return $this->render('building/index.html.twig', array(
                     'buildings' => $buildings,
@@ -65,6 +90,7 @@ class BuildingController extends Controller {
      * @Method("GET")
      */
     public function showAction(Building $building) {
+
         $deleteForm = $this->createDeleteForm($building);
 
         return $this->render('building/show.html.twig', array(
@@ -79,7 +105,12 @@ class BuildingController extends Controller {
      * @Route("/{id}/edit", name="building_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Building $building) {
+    public function editAction(Request $request, Building $building, $id) {
+
+//        if ($this->checkCurrentUser($id) == false) {
+//            return new Response("Nie masz uprawnień!");
+//        }
+
         $deleteForm = $this->createDeleteForm($building);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);

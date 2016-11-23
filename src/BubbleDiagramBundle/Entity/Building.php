@@ -308,4 +308,19 @@ class Building {
     public function __toString() {
         return $this->name;
     }
+    
+    public function calculateBuildingNBA() {
+        $this->NBA = 0;
+        foreach ($this->levels as $level) {
+            $levelNBA = $level->calculateLevelNBA();
+            $this->NBA += $levelNBA;
+        }
+        return $this->NBA;
+    }
+    
+    public function calculateBuildingGBA() {
+        $this->NBA = $this->calculateBuildingNBA();
+        $this->GBA = round(($this->NBA / $this->NBAFactor), 2);
+        return $this->GBA;
+    }
 }

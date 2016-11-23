@@ -197,4 +197,13 @@ class Zone
         public function __toString() {
         return $this->name;
     }
+    
+    public function calculateZoneNBA() {
+        $zoneNBA = 0;
+        foreach ($this->rooms as $room) {
+            $roomArea = $room->getArea();
+            $zoneNBA += $roomArea;
+        }
+        return $zoneNBA;
+    }
 }

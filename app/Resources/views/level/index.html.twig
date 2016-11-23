@@ -13,7 +13,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Description</th>
+       
+                        <th>NBA [m<sup>2</sup>]</th>
 
                         <th>Pomieszczenia</th>
                         <th>Actions</th>
@@ -24,7 +25,7 @@
                         <tr>
                             <td><a href="{{ path('level_show', { 'id': level.id }) }}">{{ level.id }}</a></td>
                             <td>{{ level.name }}</td>
-                            <td>{{ level.description }}</td>
+                            <td>{{ level.calculateLevelNBA() }}</td>
 
                             <td>
                                 <ul>

@@ -198,9 +198,12 @@ class Level
         return $this->name;
     }
     
-//    public function calculateLevelNBA() {
-//        foreach ($this->rooms as $room) {
-//            $room->get
-//        }
-//    }
+    public function calculateLevelNBA() {
+        $levelNBA = 0;
+        foreach ($this->rooms as $room) {
+            $roomArea = $room->getArea();
+            $levelNBA += $roomArea;
+        }
+        return $levelNBA;
+    }
 }

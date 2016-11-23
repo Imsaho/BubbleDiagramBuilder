@@ -9,20 +9,16 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th>ID</th>
-                        <td>{{ building.id }}</td>
-                    </tr>
-                    <tr>
                         <th>Name</th>
                         <td>{{ building.name }}</td>
                     </tr>
                     <tr>
                         <th>GBA</th>
-                        <td>{{ building.GBA }}</td>
+                        <td>{{ building.calculateBuildingGBA }} m<sup>2</sup></td>
                     </tr>
                     <tr>
                         <th>NBA</th>
-                        <td>{{ building.NBA }}</td>
+                        <td>{{ building.calculateBuildingNBA() }} m<sup>2</sup></td>
                     </tr>
                     <tr>
                         <th>współczynnik NBA</th>

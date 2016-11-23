@@ -11,21 +11,19 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ level.id }}</td>
+                        <th bgcolor="{{ level.color }}">Kondygnacja</th>
+                        <td bgcolor="{{ level.color }}">{{ level.name }}</td>
                     </tr>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ level.name }}</td>
-                    </tr>
+
                     <tr>
                         <th>Description</th>
                         <td>{{ level.description }}</td>
                     </tr>
                     <tr>
-                        <th>Color</th>
-                        <td>{{ level.color }}</td>
+                        <th>Level NBA Total</th>
+                        <td>{{ level.calculateLevelNBA() }} m<sup>2</sup></td>
                     </tr>
+
                     <tr>
                         <th>Pomieszczenia</th>
                         <td>

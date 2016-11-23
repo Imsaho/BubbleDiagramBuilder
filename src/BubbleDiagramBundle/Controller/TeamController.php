@@ -39,6 +39,7 @@ class TeamController extends Controller
      */
     public function newAction(Request $request)
     {
+        //$user = $this->getUser();
         $team = new Team();
         $form = $this->createForm('BubbleDiagramBundle\Form\TeamType', $team);
         $form->handleRequest($request);

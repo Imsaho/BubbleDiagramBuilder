@@ -1,54 +1,54 @@
 {% extends 'base.html.twig' %}
 
 
-{% block page_header %}Pomieszczenie{% endblock page_header %}
+{% block page_header %}Pomieszczenia{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block body %}
 
-<div class="table-responsive">
-    <table class ="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Area</th>
-                <th>Minheight</th>
-                <th>Requirements</th>
-                <th>Description</th>
-                <th>Maxpersonamount</th>
-                <th>Accesscontrol</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for room in rooms %}
+    <div class="table-responsive">
+        <table class ="table table-hover table-striped">
+            <thead>
                 <tr>
-                    <td><a href="{{ path('room_show', { 'id': room.id }) }}">{{ room.id }}</a></td>
-                    <td>{{ room.number }}</td>
-                    <td>{{ room.name }}</td>
-                    <td>{{ room.area }}</td>
-                    <td>{{ room.minHeight }}</td>
-                    <td>{{ room.requirements }}</td>
-                    <td>{{ room.description }}</td>
-                    <td>{{ room.maxPersonAmount }}</td>
-                    <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
-                            </li>
-                        </ul>
-                    </td>
+
+                    <th>Numer</th>
+                    <th>Kondygnacja</th>
+                    <th>Nazwa</th>
+                    <th>Powierzchnia [m<sup>2</sup>]</th>
+
+
+                    <th>Liczba osób</th>
+                    <th>Kontrola dostępu</th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                    <tr>
+
+                        <td>{{ room.number }}</td>
+                        <td>{{ room.level.name }}</td>
+                        <td>{{ room.name }}</td>
+                        <td>{{ room.area }}</td>
+
+
+                        <td>{{ room.maxPersonAmount }}</td>
+                        <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <ul>
         <li>

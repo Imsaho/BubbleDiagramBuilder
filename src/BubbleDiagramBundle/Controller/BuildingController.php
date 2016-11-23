@@ -141,14 +141,21 @@ class BuildingController extends Controller {
      * @Route("/{id}/room/byLevel", name="all_rooms_by_level")
      * @Template()
      */
-    public function showRoomsByLevel() {
+    public function showRoomsByLevel($id) {
 
         $em = $this->getDoctrine()->getManager();
+        $levels = $em->getRepository("BubbleDiagramBundle:Level")->findByBuilding($id);
+        $allRooms = [];
+        foreach ($levels as $level) {
+            $rooms = $level->getRooms();
+            $allRooms[] = $rooms;
+        }
 
-        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findAll();
+//        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findAll();
 
         return array(
-            'rooms' => $rooms);
+            'levels' => $levels,
+            'all_rooms' => $allRooms);
     }
 
     /**

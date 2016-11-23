@@ -134,7 +134,7 @@ class LevelController extends Controller {
     }
 
     /**
-     * Redirects to page with all building rooms selected by level
+     * Displays page with all building rooms selected by level
      * 
      * @Route("/{id}/room/onLevel", name="all_rooms_on_level")
      * @Template()

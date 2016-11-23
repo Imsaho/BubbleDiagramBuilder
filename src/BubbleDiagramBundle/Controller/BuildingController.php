@@ -7,9 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use BubbleDiagramBundle\Entity\Room;
 
 /**
  * Building controller.
@@ -136,7 +134,7 @@ class BuildingController extends Controller {
     }
 
     /**
-     * Redirects to page with all building rooms selected by level
+     * Displays page with all building rooms selected by level
      * 
      * @Route("/{id}/room/byLevel", name="all_rooms_by_level")
      * @Template()
@@ -150,21 +148,29 @@ class BuildingController extends Controller {
             $rooms = $level->getRooms();
             $allRooms[] = $rooms;
         }
-
-//        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findAll();
-
         return array(
             'levels' => $levels,
             'all_rooms' => $allRooms);
     }
 
     /**
-     * Redirects to page with all building rooms selected by zone
+     * Displays page with all building rooms selected by zone
      * 
      * @Route("/{id}/room/byZone", name="all_rooms_by_zone")
+     * @Template()
      */
-    public function showRoomsByZone() {
-        return new Response("all rooms by zone");
+    public function showRoomsByZone($id) {
+        $em = $this->getDoctrine()->getManager();
+        $zones = $em->getRepository("BubbleDiagramBundle:Zone")->findByBuilding($id);
+        //dump($zones); die();
+        $allRooms = [];
+        foreach ($zones as $zone) {
+            $rooms = $zone->getRooms();
+            $allRooms[] = $rooms;
+        }
+        return array(
+            'zones' => $zones,
+            'all_rooms' => $allRooms);
     }
 
 }

@@ -134,7 +134,7 @@ class ZoneController extends Controller {
     }
 
     /**
-     * Redirects to page with all building rooms selected by zone
+     * Displays page with all building rooms selected by zone
      * 
      * @Route("/{id}/room/inZone", name="all_rooms_in_zone")
      * @Template()

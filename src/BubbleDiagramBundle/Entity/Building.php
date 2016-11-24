@@ -271,15 +271,13 @@ class Building {
         return $this->zones;
     }
 
-
     /**
      * Add levels
      *
      * @param \BubbleDiagramBundle\Entity\Level $levels
      * @return Building
      */
-    public function addLevel(\BubbleDiagramBundle\Entity\Level $levels)
-    {
+    public function addLevel(\BubbleDiagramBundle\Entity\Level $levels) {
         $this->levels[] = $levels;
 
         return $this;
@@ -290,8 +288,7 @@ class Building {
      *
      * @param \BubbleDiagramBundle\Entity\Level $levels
      */
-    public function removeLevel(\BubbleDiagramBundle\Entity\Level $levels)
-    {
+    public function removeLevel(\BubbleDiagramBundle\Entity\Level $levels) {
         $this->levels->removeElement($levels);
     }
 
@@ -300,15 +297,14 @@ class Building {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getLevels()
-    {
+    public function getLevels() {
         return $this->levels;
     }
-    
+
     public function __toString() {
         return $this->name;
     }
-    
+
     public function calculateBuildingNBA() {
         $this->NBA = 0;
         foreach ($this->levels as $level) {
@@ -317,10 +313,20 @@ class Building {
         }
         return $this->NBA;
     }
-    
+
     public function calculateBuildingGBA() {
         $this->NBA = $this->calculateBuildingNBA();
         $this->GBA = round(($this->NBA / $this->NBAFactor), 2);
         return $this->GBA;
     }
+
+    public function calculateBuildingPopulation() {
+        $totalPeople = 0;
+        foreach ($this->levels as $level) {
+            $peopleOnLevel = $level->calculatePeopleOnLevel();
+            $totalPeople += $peopleOnLevel;
+        }
+        return $totalPeople;
+    }
+
 }

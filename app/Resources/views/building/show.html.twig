@@ -10,7 +10,7 @@
                 <tbody>
                     <tr>
                         <th>Name</th>
-                        <td>{{ building.name }}</td>
+                        <th>{{ building.name }}</th>
                     </tr>
                     <tr>
                         <th>GBA</th>
@@ -23,6 +23,10 @@
                     <tr>
                         <th>współczynnik NBA</th>
                         <td>{{ building.NBAFactor }}</td>
+                    </tr>
+                    <tr>
+                        <th>Populacja</th>
+                        <td>{{ building.calculateBuildingPopulation() }}</td>
                     </tr>
                     <tr>
                         <th>Współrzędne</th>

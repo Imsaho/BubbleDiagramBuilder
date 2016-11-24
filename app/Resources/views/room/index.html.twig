@@ -35,14 +35,14 @@
 
 
                         <td>{{ room.maxPersonAmount }}</td>
-                        <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
+                        <td>{% if room.accessControl %}Tak{% else %}Nie{% endif %}</td>
                         <td>
                             <ul>
                                 <li>
-                                    <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
+                                    <a href="{{ path('room_show', { 'id': room.id }) }}">szczegóły</a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
+                                    <a href="{{ path('room_edit', { 'id': room.id }) }}">edytuj</a>
                                 </li>
                             </ul>
                         </td>
@@ -54,7 +54,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('room_new') }}">Create a new room</a>
+            <a href="{{ path('room_new') }}">Dodaj nowe pomieszczenie</a>
         </li>
     </ul>
 {% endblock %}

@@ -15,6 +15,8 @@
                         <th>Nazwa</th>
 
                         <th># kolor</th>
+                        <th>NBA [m<sup>2</sup>]</th>
+                        <th>Populacja</th>
                         <th>Pomieszczenia</th>
                         <th></th>
                     </tr>
@@ -26,6 +28,8 @@
                             <td>{{ zone.name }}</td>
 
                             <td bgcolor="{{ zone.color }}"></td>
+                            <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
+                            <td>{{ zone.calculatePeopleInZone() }}</td>
                             <td>
                                 <ul>
                                     <li><a href="{{ path('all_rooms_in_zone', { 'id': zone.id }) }}">pokaż wszystkie</a></li>
@@ -34,10 +38,10 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('zone_show', { 'id': zone.id }) }}">show</a>
+                                        <a href="{{ path('zone_show', { 'id': zone.id }) }}">szczegóły</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('zone_edit', { 'id': zone.id }) }}">edit</a>
+                                        <a href="{{ path('zone_edit', { 'id': zone.id }) }}">edytuj</a>
                                     </li>
                                 </ul>
                             </td>
@@ -50,7 +54,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('zone_new') }}">Create a new zone</a>
+            <a href="{{ path('zone_new') }}">Dodaj nową strefę</a>
         </li>
     </ul>
 {% endblock %}

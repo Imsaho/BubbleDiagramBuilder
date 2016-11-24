@@ -11,8 +11,8 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th bgcolor="{{ zone.color }}"></th>
-                        <td bgcolor="{{ zone.color }}">{{ zone.name }}</td>
+
+                        <th bgcolor="{{ zone.color }}" colspan="2" style="text-align:center">{{ zone.name }}</th>
                     </tr>
                     <tr>
                         <th>Description</th>
@@ -21,6 +21,10 @@
                     <tr>
                         <th>zone NBA</th>
                         <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
+                    </tr>
+                    <tr>
+                        <th>Populacja</th>
+                        <td>{{ zone.calculatePeopleInZone() }}</td>
                     </tr>
                     <tr>
                         <th>Pomieszczenia</th>

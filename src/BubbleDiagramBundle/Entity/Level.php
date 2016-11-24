@@ -206,4 +206,13 @@ class Level
         }
         return $levelNBA;
     }
+    
+    public function calculatePeopleOnLevel() {
+        $people = 0;
+        foreach ($this->rooms as $room) {
+            $peopleInRoom = $room->getMaxPersonAmount();
+            $people += $peopleInRoom;
+        }
+        return $people;
+    }
 }

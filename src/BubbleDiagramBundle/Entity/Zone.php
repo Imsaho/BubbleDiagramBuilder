@@ -206,4 +206,13 @@ class Zone
         }
         return $zoneNBA;
     }
+    
+    public function calculatePeopleInZone() {
+        $people = 0;
+        foreach ($this->rooms as $room) {
+            $peopleInRoom = $room->getMaxPersonAmount();
+            $people += $peopleInRoom;
+        }
+        return $people;
+    }
 }

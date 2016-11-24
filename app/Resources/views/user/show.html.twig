@@ -11,35 +11,38 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ user.id }}</td>
+                        <th>Użytkownik</th>
+                        <td>{{ user.username }}</td>
                     </tr>
                     <tr>
                         <th>Email</th>
                         <td>{{ user.email }}</td>
                     </tr>
                     <tr>
-                        <th>Password</th>
-                        <td>{{ user.password }}</td>
+                        <th>Teams</th>
+                        <td>
+                            <ul>
+                                {% for team in user.teams %}
+                                    <li>{{ team.name }}</li>
+                                    {% endfor %}
+                            </ul>
+                        </td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
     </div>
 
     <div class="col-lg-12">
-        <ul>
-            <li>
-                <a href="{{ path('user_index') }}">Back to the list</a>
-            </li>
-            <li>
-                <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
-            </li>
-            <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-            </li>
-        </ul>
+
+        <a href="{{ path('user_index') }}">Powrót do listy | </a>
+
+        <a href="{{ path('user_edit', { 'id': user.id }) }}">Edytuj</a>
+
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+
     </div>
 {% endblock %}

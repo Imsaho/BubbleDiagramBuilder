@@ -13,6 +13,10 @@
                         <th>{{ building.name }}</th>
                     </tr>
                     <tr>
+                        <th>Ilość kondygnacji</th>
+                        <td>{{ building.levels | length }}</td>
+                    </tr>
+                    <tr>
                         <th>GBA</th>
                         <td>{{ building.calculateBuildingGBA }} m<sup>2</sup></td>
                     </tr>

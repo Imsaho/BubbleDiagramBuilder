@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Ilość kondygnacji</th>
                         <th>Współrzędne</th>
                         <th>Pomieszczenia</th>
 
@@ -21,6 +22,7 @@
                     {% for building in buildings %}
                         <tr>
                             <th>{{ building.name }}</th>
+                            <td>{{ building.levels | length }}</td>
                             <td>
                                 <a href="http://www.google.com/maps/place/{{building.coordinates}}" target="_blank">{{ building.coordinates }}</a>
                             </td>

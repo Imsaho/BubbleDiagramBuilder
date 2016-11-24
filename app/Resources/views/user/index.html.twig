@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block page_header %}Użytkownik{% endblock page_header %}
+{% block page_header %}Użytkownicy{% endblock page_header %}
 {% block small_header %}wszyscy{% endblock small_header %}
 
 {% block body %}
@@ -11,25 +11,24 @@
             <table class ="table table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Nazwa użytkownika</th>
                         <th>Email</th>
-                        <th>Password</th>
-                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
                         <tr>
-                            <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                            {#                            <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>#}
+                            <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.password }}</td>
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                                        <a href="{{ path('user_show', { 'id': user.id }) }}">szczegóły</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+                                        <a href="{{ path('add_user_to_team', { 'id': user.id }) }}">dodaj do zespołu</a>
                                     </li>
                                 </ul>
                             </td>
@@ -40,9 +39,4 @@
         </div>
     </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
 {% endblock %}

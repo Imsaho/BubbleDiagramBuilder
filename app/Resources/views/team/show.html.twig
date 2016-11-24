@@ -13,6 +13,16 @@
                 <th>Name</th>
                 <td>{{ team.name }}</td>
             </tr>
+            <tr>
+                <th>Users</th>
+                <td>
+                    <ul>
+                        {% for user in team.users %}
+                            <li>{{ user.username }}</li>
+                            {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 

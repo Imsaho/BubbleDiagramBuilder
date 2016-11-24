@@ -5,7 +5,9 @@ namespace BubbleDiagramBundle\Controller;
 use BubbleDiagramBundle\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Team controller.
@@ -14,6 +16,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class TeamController extends Controller
 {
+    public function createAddUserForm($team) {
+        $form = $this->createFormBuilder($team)
+                ->setAction($this->generateUrl('add_user_to_team'))
+                ->setMethod('POST')
+                ->add('users')
+                ->add('save', SubmitType::class)
+                ->getForm();
+        return $form;
+    }
+    
     /**
      * Lists all team entities.
      *
@@ -46,8 +58,10 @@ class TeamController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser()->addTeam($team);
             $em->persist($team);
-            $em->flush($team);
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirectToRoute('team_show', array('id' => $team->getId()));
         }
@@ -67,6 +81,7 @@ class TeamController extends Controller
     public function showAction(Team $team)
     {
         $deleteForm = $this->createDeleteForm($team);
+        //dump($team); die();
 
         return $this->render('team/show.html.twig', array(
             'team' => $team,
@@ -97,6 +112,21 @@ class TeamController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    
+    /**
+     * Adds selected user to the team
+     * 
+     * @Route("/{id}/addUser", name="add_user_to_team")
+     * @Method({"GET", "POST"})
+     */
+    public function addUserToTeamAction(Request $request, Team $team) {
+        $addUserForm = $this->createAddUserForm($team);
+        $addUserForm->handleRequest($request);
+        
+        if ($addUserForm->isSubmitted() && $addUserForm->isValid()) {
+            ;
+        }
     }
 
     /**

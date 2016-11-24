@@ -23,9 +23,7 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $users = $em->getRepository('BubbleDiagramBundle:User')->findAll();
-
         return $this->render('user/index.html.twig', array(
             'users' => $users,
         ));

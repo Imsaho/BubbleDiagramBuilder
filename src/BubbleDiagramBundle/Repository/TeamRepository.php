@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamRepository extends EntityRepository
 {
+//    public function findUsersByTeam($teamId) {
+//        $dql = "SELECT user FROM BubbleDiagramBundle:User user
+//                                    JOIN team ON 
+//                                    WHERE "
+//    }
 }

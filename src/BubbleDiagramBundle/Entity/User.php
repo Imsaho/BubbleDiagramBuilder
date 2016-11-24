@@ -25,8 +25,8 @@ class User extends BaseUser {
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Team", inversedBy="users")
-     * @ORM\JoinTable(name="users_teams")
+     * @ORM\ManyToMany(targetEntity="Team", mappedBy="users", fetch="EAGER")
+     * 
      */
     private $teams;
 

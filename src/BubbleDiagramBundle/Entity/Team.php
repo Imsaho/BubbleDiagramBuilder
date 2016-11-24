@@ -12,8 +12,8 @@ use BubbleDiagramBundle\Entity\User;
  * @ORM\Table(name="team")
  * @ORM\Entity(repositoryClass="BubbleDiagramBundle\Repository\TeamRepository")
  */
-class Team
-{
+class Team {
+
     /**
      * @var int
      *
@@ -22,38 +22,36 @@ class Team
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
-    
+
     /**
      *
      * @ORM\OneToOne(targetEntity="Building", mappedBy="team")
      */
     private $building;
-    
+
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="teams")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="teams", fetch="EAGER")
+     * @ORM\JoinTable(name="teams_users")
      */
     private $users;
-    
-    
+
     public function __construct() {
         $this->users = new ArrayCollection();
     }
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -63,8 +61,7 @@ class Team
      * @param \BubbleDiagramBundle\Entity\User $users
      * @return Team
      */
-    public function addUser(\BubbleDiagramBundle\Entity\User $users)
-    {
+    public function addUser(\BubbleDiagramBundle\Entity\User $users) {
         $this->users[] = $users;
 
         return $this;
@@ -75,8 +72,7 @@ class Team
      *
      * @param \BubbleDiagramBundle\Entity\User $users
      */
-    public function removeUser(\BubbleDiagramBundle\Entity\User $users)
-    {
+    public function removeUser(\BubbleDiagramBundle\Entity\User $users) {
         $this->users->removeElement($users);
     }
 
@@ -85,8 +81,7 @@ class Team
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
 
@@ -96,8 +91,8 @@ class Team
      * @param \BubbleDiagramBundle\Entity\Building $building
      * @return Team
      */
-    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
-    {
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building =
+    null) {
         $this->building = $building;
 
         return $this;
@@ -108,11 +103,10 @@ class Team
      *
      * @return \BubbleDiagramBundle\Entity\Building 
      */
-    public function getBuilding()
-    {
+    public function getBuilding() {
         return $this->building;
     }
-    
+
     public function __toString() {
         return $this->name;
     }
@@ -123,8 +117,7 @@ class Team
      * @param string $name
      * @return Team
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -135,8 +128,8 @@ class Team
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
 }

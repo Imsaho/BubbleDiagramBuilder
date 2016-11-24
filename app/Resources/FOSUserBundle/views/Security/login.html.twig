@@ -1,5 +1,8 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+{% block page_header %}Logowanie | <a href="{{ path('fos_user_registration_register') }}">Rejestracja</a>{% endblock page_header %}
+{% block small_header %}{% endblock small_header %}
+
 {% block fos_user_content %}
     {{ include('FOSUserBundle:Security:login_content.html.twig') }}
 {% endblock fos_user_content %}

@@ -22,7 +22,8 @@ class BuildingController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
-        $teamId = $building->getTeam()->getId();
+        $teamId = $building->getTeam();
+        dump($teamId); die();
         $team = $em->getRepository("BubbleDiagramBundle:Team")->find($teamId);
         //$teamUsers = $team->getUsers();
         dump($team); die();

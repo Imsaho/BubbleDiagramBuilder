@@ -8,38 +8,41 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+//use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Team controller.
  *
  * @Route("team")
  */
-class TeamController extends Controller
-{
+class TeamController extends Controller {
+
     public function createAddUserForm($team) {
         $form = $this->createFormBuilder($team)
-                ->setAction($this->generateUrl('add_user_to_team'))
+                ->setAction($this->generateUrl('add_user_to_team', array(
+                            'id' => $team->getId())))
                 ->setMethod('POST')
                 ->add('users')
                 ->add('save', SubmitType::class)
                 ->getForm();
         return $form;
     }
-    
+
     /**
      * Lists all team entities.
      *
      * @Route("/", name="team_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $teams = $em->getRepository('BubbleDiagramBundle:Team')->findAll();
 
         return $this->render('team/index.html.twig', array(
-            'teams' => $teams,
+                    'teams' => $teams,
         ));
     }
 
@@ -49,8 +52,7 @@ class TeamController extends Controller
      * @Route("/new", name="team_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         //$user = $this->getUser();
         $team = new Team();
         $form = $this->createForm('BubbleDiagramBundle\Form\TeamType', $team);
@@ -63,12 +65,13 @@ class TeamController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('team_show', array('id' => $team->getId()));
+            return $this->redirectToRoute('team_show', array(
+                        'id' => $team->getId()));
         }
 
         return $this->render('team/new.html.twig', array(
-            'team' => $team,
-            'form' => $form->createView(),
+                    'team' => $team,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -78,14 +81,13 @@ class TeamController extends Controller
      * @Route("/{id}", name="team_show")
      * @Method("GET")
      */
-    public function showAction(Team $team)
-    {
+    public function showAction(Team $team) {
         $deleteForm = $this->createDeleteForm($team);
         //dump($team); die();
 
         return $this->render('team/show.html.twig', array(
-            'team' => $team,
-            'delete_form' => $deleteForm->createView(),
+                    'team' => $team,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -95,8 +97,7 @@ class TeamController extends Controller
      * @Route("/{id}/edit", name="team_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Team $team)
-    {
+    public function editAction(Request $request, Team $team) {
         $deleteForm = $this->createDeleteForm($team);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\TeamType', $team);
         $editForm->handleRequest($request);
@@ -104,29 +105,55 @@ class TeamController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('team_edit', array('id' => $team->getId()));
+            return $this->redirectToRoute('team_edit', array(
+                        'id' => $team->getId()));
         }
 
         return $this->render('team/edit.html.twig', array(
-            'team' => $team,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'team' => $team,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
-    
+
     /**
      * Adds selected user to the team
      * 
      * @Route("/{id}/addUser", name="add_user_to_team")
      * @Method({"GET", "POST"})
+     * @Template()
      */
-    public function addUserToTeamAction(Request $request, Team $team) {
+    public function addUserToTeamAction(Request $request, Team $team, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $previousTeam = $em->getRepository("BubbleDiagramBundle:Team")->find($id);
+        dump($previousTeam); die();
+        
         $addUserForm = $this->createAddUserForm($team);
         $addUserForm->handleRequest($request);
-        
+
         if ($addUserForm->isSubmitted() && $addUserForm->isValid()) {
-            ;
+
+
+            $team = $addUserForm->getData();
+            //dump($team);
+            dump($team);
+            $users = $team->getUsers();
+            //dump($users); die();
+            //dump($team); die();
+            foreach ($users as $user) {
+
+                $user->addTeam($team);
+                $em->persist($user);
+            }
+            $em->persist($team);
+            //$em->persist($user);
+            $em->flush();
         }
+
+        return array(
+            'add_form' => $addUserForm->createView(),
+            'team' => $team->getName());
     }
 
     /**
@@ -135,8 +162,7 @@ class TeamController extends Controller
      * @Route("/{id}", name="team_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Team $team)
-    {
+    public function deleteAction(Request $request, Team $team) {
         $form = $this->createDeleteForm($team);
         $form->handleRequest($request);
 
@@ -156,12 +182,13 @@ class TeamController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Team $team)
-    {
+    private function createDeleteForm(Team $team) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('team_delete', array('id' => $team->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('team_delete', array(
+                                    'id' => $team->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

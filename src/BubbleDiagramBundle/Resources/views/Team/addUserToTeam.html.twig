@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header %}Team{% endblock page_header %}
+{% block small_header %}dodaj użytkownika do: {{ team | lower }}{% endblock small_header %}
+
+{% block body %}
+
+    {{ form_start(add_form) }}
+    {{ form_widget(add_form) }}
+    {{ form_end(add_form) }}
+
+{% endblock %}

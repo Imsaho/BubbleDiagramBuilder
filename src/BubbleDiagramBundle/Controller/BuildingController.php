@@ -174,14 +174,8 @@ class BuildingController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $levels = $em->getRepository("BubbleDiagramBundle:Level")->findByBuilding($id);
-        $allRooms = [];
-        foreach ($levels as $level) {
-            $rooms = $level->getRooms();
-            $allRooms[] = $rooms;
-        }
         return array(
-            'levels' => $levels,
-            'all_rooms' => $allRooms);
+            'levels' => $levels);
     }
 
     /**
@@ -193,15 +187,8 @@ class BuildingController extends Controller {
     public function showRoomsByZone($id) {
         $em = $this->getDoctrine()->getManager();
         $zones = $em->getRepository("BubbleDiagramBundle:Zone")->findByBuilding($id);
-        //dump($zones); die();
-        $allRooms = [];
-        foreach ($zones as $zone) {
-            $rooms = $zone->getRooms();
-            $allRooms[] = $rooms;
-        }
         return array(
-            'zones' => $zones,
-            'all_rooms' => $allRooms);
+            'zones' => $zones);
     }
 
 }

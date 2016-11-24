@@ -84,21 +84,16 @@
                         <li class="active">
                             <a href="{{ path('building_index') }}"><i class="fa fa-fw fa-building-o"></i> Budynki </a>
                         </li>
+                        {% block menu_item %}
+
+                        {% endblock %}
+
+
                         <li>
-                            <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('zone_index') }}"><i class="fa fa-fw fa-circle"></i> Strefy</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
-                        </li>
-                        <li>
+                            <hr/>
                             <a href="{{ path('team_index') }}"><i class="fa fa-fw fa-th"></i> Zespoły projektowe</a>
                         </li>
-                        <li>
-                            <a href="{{ path('user_index') }}"><i class="fa fa-fw fa-th"></i> Użytkownicy</a>
-                        </li>
+
 
                         {#                        <li>
                                                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i

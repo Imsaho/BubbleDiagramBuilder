@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block page_header %}Strefa{% endblock page_header %}
+{% block page_header %}Strefy{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
+
+{% block menu_item %}
+
+    <li>
+        <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+    </li>
+    <li>
+        <a href="{{ path('zone_index') }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+    </li>
+    <li>
+        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+    </li>
+
+{% endblock menu_item %}
 
 {% block body %}
     {#    <h1>Zones list</h1>#}

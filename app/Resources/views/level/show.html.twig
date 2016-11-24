@@ -3,6 +3,20 @@
 {% block page_header %}Kondygnacja{% endblock page_header %}
 {% block small_header %}szczegóły{% endblock small_header %}
 
+{% block menu_item %}
+
+    <li>
+        <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+    </li>
+    <li>
+        <a href="{{ path('zone_index') }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+    </li>
+    <li>
+        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+    </li>
+
+{% endblock menu_item %}
+
 {% block body %}
     {#    <h1>Level</h1>#}
 
@@ -11,7 +25,7 @@
             <table class ="table table-hover">
                 <tbody>
                     <tr>
-                        
+
                         <th bgcolor="{{ level.color }}" colspan="2" style="text-align:center">Kondygnacja {{ level.name }}</th>
                     </tr>
 
@@ -23,7 +37,7 @@
                         <th>Level NBA Total</th>
                         <td>{{ level.calculateLevelNBA() }} m<sup>2</sup></td>
                     </tr>
-                    
+
                     <tr>
                         <th>Populacja</th>
                         <td>{{ level.calculatePeopleOnLevel() }}</td>

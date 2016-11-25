@@ -22,12 +22,13 @@ class LevelController extends Controller {
      * @Route("/", name="level_index")
      * @Method("GET")
      */
-    public function indexAction() {
+    public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
         $levels = $em->getRepository('BubbleDiagramBundle:Level')->findAll();
 
         return $this->render('level/index.html.twig', array(
+                    'building_id' => $building_id,
                     'levels' => $levels,
         ));
     }
@@ -38,7 +39,7 @@ class LevelController extends Controller {
      * @Route("/new", name="level_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, $building_id) {
         $level = new Level();
         $form = $this->createForm('BubbleDiagramBundle\Form\LevelType', $level);
         $form->handleRequest($request);
@@ -49,6 +50,7 @@ class LevelController extends Controller {
             $em->flush($level);
 
             return $this->redirectToRoute('level_show', array(
+                        'building_id' => $building_id,
                         'id' => $level->getId()));
         }
 
@@ -65,11 +67,10 @@ class LevelController extends Controller {
      * @Method("GET")
      */
     public function showAction(Level $level) {
-        $deleteForm = $this->createDeleteForm($level);
+
 
         return $this->render('level/show.html.twig', array(
-                    'level' => $level,
-                    'delete_form' => $deleteForm->createView(),
+                    'level' => $level
         ));
     }
 
@@ -80,7 +81,7 @@ class LevelController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Level $level) {
-        $deleteForm = $this->createDeleteForm($level);
+
         $editForm = $this->createForm('BubbleDiagramBundle\Form\LevelType', $level);
         $editForm->handleRequest($request);
 
@@ -94,43 +95,28 @@ class LevelController extends Controller {
         return $this->render('level/edit.html.twig', array(
                     'level' => $level,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a level entity.
      *
-     * @Route("/{id}", name="level_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="level_delete")
+     * 
      */
-    public function deleteAction(Request $request, Level $level) {
-        $form = $this->createDeleteForm($level);
-        $form->handleRequest($request);
+    public function deleteAction($id, $building_id) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($level);
-            $em->flush($level);
-        }
+        $em = $this->getDoctrine()->getManager();
+        $level = $em->getRepository("BubbleDiagramBundle:Level")->find($id);
+        $em->remove($level);
+        $em->flush();
 
-        return $this->redirectToRoute('level_index');
-    }
+        $levels = $em->getRepository("BubbleDiagramBundle:Level")->findAll();
 
-    /**
-     * Creates a form to delete a level entity.
-     *
-     * @param Level $level The level entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Level $level) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('level_delete', array(
-                                    'id' => $level->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
+        return $this->redirectToRoute('level_index', array(
+                    'building_id' => $building_id,
+                    'levels' => $levels
+        ));
     }
 
     /**

@@ -10,10 +10,10 @@
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
-
+{#
     <ul>
         <li>
-            <a href="{{ path('level_index') }}">Back to the list</a>
+            <a href="{{ path('level_index', {'building_id': level.building.id}) }}">Back to the list</a>
         </li>
-    </ul>
+    </ul>#}
 {% endblock %}

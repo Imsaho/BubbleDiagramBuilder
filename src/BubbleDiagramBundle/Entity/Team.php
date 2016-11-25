@@ -32,7 +32,7 @@ class Team {
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="Building", mappedBy="team")
+     * @ORM\OneToOne(targetEntity="Building", mappedBy="team", fetch="EAGER")
      */
     private $building;
 

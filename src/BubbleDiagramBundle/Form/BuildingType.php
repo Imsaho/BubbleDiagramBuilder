@@ -13,7 +13,7 @@ class BuildingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('GBA')->add('NBA')->add('NBAFactor')->add('coordinates')->add('description')->add('team')        ;
+        $builder->add('name')->add('NBAFactor')->add('coordinates')->add('description')->add('team')        ;
     }
     
     /**

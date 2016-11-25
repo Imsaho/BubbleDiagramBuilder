@@ -6,10 +6,10 @@
 {% block menu_item %}
 
     <li>
-        <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+        <a href="{{ path('level_index', {'building_id': building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
     </li>
     <li>
-        <a href="{{ path('zone_index') }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+        <a href="{{ path('zone_index', {'building_id': building.id}) }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
 
 {% endblock menu_item %}

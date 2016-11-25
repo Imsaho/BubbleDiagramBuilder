@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Zone controller.
  *
- * @Route("zone")
+ * @Route("building/{building_id}/zone")
  */
 class ZoneController extends Controller {
 

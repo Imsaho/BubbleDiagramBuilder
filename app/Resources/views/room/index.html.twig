@@ -4,6 +4,20 @@
 {% block page_header %}Pomieszczenia{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
 
+{#{% block menu_item %}
+
+    <li>
+        <a href="{{ path('level_index', {'building_id': rooms[0].level.building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+    </li>
+    <li>
+        <a href="{{ path('zone_index', {'building_id': rooms[0].level.building.id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+    </li>
+    <li>
+        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+    </li>
+
+{% endblock menu_item %}#}
+
 {% block body %}
 
     <div class="table-responsive">

@@ -6,10 +6,10 @@
 {% block menu_item %}
 
     <li>
-        <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+        <a href="{{ path('level_index', {'building_id': zones[0].building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
     </li>
     <li>
-        <a href="{{ path('zone_index') }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+        <a href="{{ path('zone_index', {'building_id': zones[0].building.id}) }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
     <li>
         <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
@@ -25,7 +25,7 @@
             <table class ="table table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+
                         <th>Nazwa</th>
 
                         <th># kolor</th>
@@ -38,7 +38,7 @@
                 <tbody>
                     {% for zone in zones %}
                         <tr>
-                            <td><a href="{{ path('zone_show', { 'id': zone.id }) }}">{{ zone.id }}</a></td>
+
                             <td>{{ zone.name }}</td>
 
                             <td bgcolor="{{ zone.color }}"></td>
@@ -46,16 +46,18 @@
                             <td>{{ zone.calculatePeopleInZone() }}</td>
                             <td>
                                 <ul>
-                                    <li><a href="{{ path('all_rooms_in_zone', { 'id': zone.id }) }}">pokaż wszystkie</a></li>
+                                    <li>
+                                        <a href="{{ path('all_rooms_in_zone', { 'id': zone.id, 'building_id': zone.building.id }) }}">pokaż wszystkie</a>
+                                    </li>
                                 </ul>
                             </td>
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('zone_show', { 'id': zone.id }) }}">szczegóły</a>
+                                        <a href="{{ path('zone_show', { 'id': zone.id, 'building_id': zone.building.id }) }}">szczegóły</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('zone_edit', { 'id': zone.id }) }}">edytuj</a>
+                                        <a href="{{ path('zone_edit', { 'id': zone.id, 'building_id': zone.building.id }) }}">edytuj</a>
                                     </li>
                                 </ul>
                             </td>
@@ -68,7 +70,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('zone_new') }}">Dodaj nową strefę</a>
+            <a href="{{ path('zone_new', {'building_id': zones[0].building.id}) }}">Dodaj nową strefę</a>
         </li>
     </ul>
 {% endblock %}

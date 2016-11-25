@@ -6,10 +6,10 @@
 {% block menu_item %}
 
     <li>
-        <a href="{{ path('level_index') }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+        <a href="{{ path('level_index', {'building_id': level.building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
     </li>
     <li>
-        <a href="{{ path('zone_index') }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+        <a href="{{ path('zone_index', {'building_id': level.building.id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
     <li>
         <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
@@ -60,13 +60,13 @@
     <div class="col-lg-12">
         <ul>
             <li>
-                <a href="{{ path('level_index') }}">Back to the list</a>
+                <a href="{{ path('level_index', {'buiding_id': level.building.id}) }}">Back to the list</a>
             </li>
             <li>
-                <a href="{{ path('level_edit', { 'id': level.id }) }}">Edit</a>
+                <a href="{{ path('level_edit', {'id': level.id, 'building_id': level.building.id}) }}">Edit</a>
             </li>
             <li>
-                {{ form_start(delete_form) }}
+                {{ form_start(delete_form, {'action': path('level_delete', {'id': level.id, 'building_id': level.building.id}) }) }}
                 <input type="submit" value="Delete">
                 {{ form_end(delete_form) }}
             </li>

@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Level controller.
  *
- * @Route("level")
+ * @Route("building/{building_id}/level")
  */
 class LevelController extends Controller {
 

@@ -38,7 +38,7 @@ class ZoneController extends Controller {
      * @Route("/new", name="zone_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, $building_id) {
         $zone = new Zone();
         $form = $this->createForm('BubbleDiagramBundle\Form\ZoneType', $zone);
         $form->handleRequest($request);
@@ -49,6 +49,7 @@ class ZoneController extends Controller {
             $em->flush($zone);
 
             return $this->redirectToRoute('zone_show', array(
+                        'building_id' => $building_id,
                         'id' => $zone->getId()));
         }
 
@@ -65,11 +66,9 @@ class ZoneController extends Controller {
      * @Method("GET")
      */
     public function showAction(Zone $zone) {
-        $deleteForm = $this->createDeleteForm($zone);
 
         return $this->render('zone/show.html.twig', array(
-                    'zone' => $zone,
-                    'delete_form' => $deleteForm->createView(),
+                    'zone' => $zone
         ));
     }
 
@@ -79,8 +78,8 @@ class ZoneController extends Controller {
      * @Route("/{id}/edit", name="zone_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Zone $zone) {
-        $deleteForm = $this->createDeleteForm($zone);
+    public function editAction(Request $request, Zone $zone, $building_id) {
+
         $editForm = $this->createForm('BubbleDiagramBundle\Form\ZoneType', $zone);
         $editForm->handleRequest($request);
 
@@ -88,49 +87,35 @@ class ZoneController extends Controller {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('zone_edit', array(
+                        'building_id' => $building_id,
                         'id' => $zone->getId()));
         }
 
         return $this->render('zone/edit.html.twig', array(
                     'zone' => $zone,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView()
         ));
     }
 
     /**
      * Deletes a zone entity.
      *
-     * @Route("/{id}", name="zone_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="zone_delete")
+     * 
      */
-    public function deleteAction(Request $request, Zone $zone) {
-        $form = $this->createDeleteForm($zone);
-        $form->handleRequest($request);
+    public function deleteAction($id, $building_id) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($zone);
-            $em->flush($zone);
-        }
+        $em = $this->getDoctrine()->getManager();
+        $zone = $this->getRepository("BubbleDiagramBundle:Zone")->find($id);
+        $em->remove($zone);
+        $em->flush();
 
-        return $this->redirectToRoute('zone_index');
-    }
+        $zones = $em->getRepository("BubbleDiagramBundle:Zone")->findAll();
 
-    /**
-     * Creates a form to delete a zone entity.
-     *
-     * @param Zone $zone The zone entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Zone $zone) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('zone_delete', array(
-                                    'id' => $zone->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
+        return $this->redirectToRoute('zone_index', array(
+                    'building_id' => $building_id,
+                    'zones' => $zones
+        ));
     }
 
     /**

@@ -3,6 +3,20 @@
 {% block page_header %}Strefa{% endblock page_header %}
 {% block small_header %}szczegóły{% endblock small_header %}
 
+{% block menu_item %}
+
+    <li>
+        <a href="{{ path('level_index', {'building_id': zone.building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+    </li>
+    <li>
+        <a href="{{ path('zone_index', {'building_id': zone.building.id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+    </li>
+    <li>
+        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+    </li>
+
+{% endblock menu_item %}
+
 {% block body %}
     {#    <h1>Zone</h1>#}
 
@@ -29,11 +43,11 @@
                     <tr>
                         <th>Pomieszczenia</th>
                         <td>
-                                                            {% for room in zone.rooms %}
-                                    <li>{{ room.number }} | {{ room.name }} | {{ room.area }} m<sup>2</sup></li>
-                                    {% endfor %}
-                        </td>
-                    </tr>
+                            {% for room in zone.rooms %}
+                    <li>{{ room.number }} | {{ room.name }} | {{ room.area }} m<sup>2</sup></li>
+                    {% endfor %}
+                </td>
+                </tr>
 
                 </tbody>
             </table>
@@ -43,16 +57,12 @@
     <div class="col-lg-12">
         <ul>
             <li>
-                <a href="{{ path('zone_index') }}">Back to the list</a>
+                <a href="{{ path('zone_index', {'building_id': zone.building.id}) }}">Back to the list</a>
             </li>
             <li>
-                <a href="{{ path('zone_edit', { 'id': zone.id }) }}">Edit</a>
+                <a href="{{ path('zone_edit', { 'id': zone.id, 'building_id': zone.building.id }) }}">Edit</a>
             </li>
-            <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-            </li>
+
         </ul>
     </div>
 {% endblock %}

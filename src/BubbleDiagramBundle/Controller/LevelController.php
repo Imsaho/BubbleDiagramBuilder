@@ -80,7 +80,7 @@ class LevelController extends Controller {
      * @Route("/{id}/edit", name="level_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Level $level) {
+    public function editAction(Request $request, Level $level, $building_id) {
 
         $editForm = $this->createForm('BubbleDiagramBundle\Form\LevelType', $level);
         $editForm->handleRequest($request);
@@ -89,6 +89,7 @@ class LevelController extends Controller {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('level_edit', array(
+                        'building_id' => $building_id,
                         'id' => $level->getId()));
         }
 

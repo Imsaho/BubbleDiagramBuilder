@@ -141,32 +141,27 @@
                         {% block body %}
                             {% block fos_user_content %}
                             {% endblock fos_user_content %}
-                        {% endblock %}
-                    </div>
-
-                    <!-- /.row -->
-
-
+                        {% block img %}{% endblock %}
+                    {% endblock %}
                 </div>
-                <!-- /.container-fluid -->
+
+                <!-- /.row -->
+
 
             </div>
-            <!-- /#page-wrapper -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- /#wrapper -->
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('sbadmin/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('sbadmin/js/askdelete.js') }}"></script>
 
 
-
-
-
-
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{{ asset('sbadmin/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('sbadmin/js/askdelete.js') }}"></script>
-
-
-    </body>
+</body>
 
 </html>

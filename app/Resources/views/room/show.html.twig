@@ -45,6 +45,14 @@
                         <th>Accesscontrol</th>
                         <td>{% if room.accessControl %}Yes{% else %}No{% endif %}</td>
                     </tr>
+                    <tr>
+                        <th>Adjacent Rooms</th>
+                        <td>
+                            {% for myRoom in room.myRooms %}
+                    <li>{{ myRoom.name }}</li>
+                            {% endfor %}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

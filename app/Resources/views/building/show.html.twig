@@ -71,4 +71,9 @@
         <input type="submit" value="Usuń">
         {{ form_end(delete_form) }}
     </div>
+        <div align="center">
+            {% block img %}
+                <img src="{{ asset('img/bubbleDiagram_2.jpg') }}" width="75%" height="75%"/>
+            {% endblock %}
+        </div>
 {% endblock body %}

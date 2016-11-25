@@ -106,7 +106,7 @@ class ZoneController extends Controller {
     public function deleteAction($id, $building_id) {
 
         $em = $this->getDoctrine()->getManager();
-        $zone = $this->getRepository("BubbleDiagramBundle:Zone")->find($id);
+        $zone = $em->getRepository("BubbleDiagramBundle:Zone")->find($id);
         $em->remove($zone);
         $em->flush();
 

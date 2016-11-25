@@ -58,7 +58,7 @@
                                         <a href="{{ path('level_edit', { 'id': level.id, 'building_id': level.building.id  }) }}">edit</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('level_delete', { 'id': level.id, 'building_id': level.building.id  }) }}">delete</a>
+                                        <a class="askdelete" href="{{ path('level_delete', { 'id': level.id, 'building_id': level.building.id  }) }}">delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -74,4 +74,5 @@
             <a href="{{ path('level_new', {'building_id': levels[0].building.id}) }}">Create a new level</a>
         </li>
     </ul>
+
 {% endblock %}

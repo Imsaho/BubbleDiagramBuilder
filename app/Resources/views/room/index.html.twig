@@ -4,19 +4,19 @@
 {% block page_header %}Pomieszczenia{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
 
-{#{% block menu_item %}
+{% block menu_item %}
 
     <li>
-        <a href="{{ path('level_index', {'building_id': rooms[0].level.building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
+        <a href="{{ path('level_index', {'building_id': building_id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
     </li>
     <li>
-        <a href="{{ path('zone_index', {'building_id': rooms[0].level.building.id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
+        <a href="{{ path('zone_index', {'building_id': building_id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
     <li>
-        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+        <a href="{{ path('room_index', {'building_id': building_id}) }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
     </li>
 
-{% endblock menu_item %}#}
+{% endblock menu_item %}
 
 {% block body %}
 
@@ -58,6 +58,9 @@
                                 <li>
                                     <a href="{{ path('room_edit', { 'id': room.id, 'building_id': room.building.getId() }) }}">edytuj</a>
                                 </li>
+                                <li>
+                                    <a class="askdelete" href="{{ path('room_delete', {'id': room.id, 'building_id': room.building.getId()}) }}">usuń</a>
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -67,7 +70,7 @@
     </div>
 
 
-    <a href="{{ path('room_new', {'building_id': rooms[0].building.getId()}) }}">Dodaj nowe pomieszczenie</a>
+    <a href="{{ path('room_new', {'building_id': building_id}) }}">Dodaj nowe pomieszczenie</a>
 
 
 {% endblock %}

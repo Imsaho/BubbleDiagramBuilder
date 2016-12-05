@@ -61,13 +61,10 @@
     <div class="col-lg-12">
         <ul>
             <li>
-{#                <a href="{{ path('room_index', {'building_id': room.building.getId()}) }}">Back to the list</a>#}
+                <a href="{{ path('room_index', {'building_id': room.building.getId()}) }}">Back to the list</a>
             </li>
             <li>
-{#                <a href="{{ path('room_edit', { 'id': room.id, {'building_id': room.building.getId()} }) }}">Edit</a>#}
-            </li>
-            <li>
-
+                <a href="{{ path('room_edit', {'id': room.id, 'building_id': room.building.getId()}) }}">Edit</a>
             </li>
         </ul>
     </div>

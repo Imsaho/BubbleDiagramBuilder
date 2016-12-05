@@ -25,7 +25,7 @@ class LevelController extends Controller {
     public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
-        $levels = $em->getRepository('BubbleDiagramBundle:Level')->findAll();
+        $levels = $em->getRepository('BubbleDiagramBundle:Level')->findByBuilding($building_id);
 
         return $this->render('level/index.html.twig', array(
                     'building_id' => $building_id,
@@ -46,6 +46,8 @@ class LevelController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+            $level->setBuilding($building);
             $em->persist($level);
             $em->flush($level);
 
@@ -126,12 +128,13 @@ class LevelController extends Controller {
      * @Route("/{id}/room/onLevel", name="all_rooms_on_level")
      * @Template()
      */
-    public function showRoomsOnLevel($id) {
+    public function showRoomsOnLevel($id, $building_id) {
 
         $em = $this->getDoctrine()->getManager();
         $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findByLevel($id);
         $level = $em->getRepository("BubbleDiagramBundle:Level")->find($id);
         return array(
+            'building_id' => $building_id,
             'rooms' => $rooms,
             'level' => $level);
     }

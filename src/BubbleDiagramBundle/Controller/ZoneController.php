@@ -124,12 +124,13 @@ class ZoneController extends Controller {
      * @Route("/{id}/room/inZone", name="all_rooms_in_zone")
      * @Template()
      */
-    public function showRoomsInZone($id) {
+    public function showRoomsInZone($id, $building_id) {
 
         $em = $this->getDoctrine()->getManager();
         $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findByZone($id);
         $zone = $em->getRepository("BubbleDiagramBundle:Zone")->find($id);
         return array(
+            'building_id' => $building_id,
             'rooms' => $rooms,
             'zone' => $zone);
     }

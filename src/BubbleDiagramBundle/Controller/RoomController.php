@@ -107,20 +107,21 @@ class RoomController extends Controller {
     /**
      * Deletes a room entity.
      *
-     * @Route("/{id}", name="room_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="room_delete")
      */
-    public function deleteAction(Request $request, Room $room) {
-        $form = $this->createDeleteForm($room);
-        $form->handleRequest($request);
+    public function deleteAction($id, $building_id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $room = $em->getRepository("BubbleDiagramBundle:Room")->find($id);
+        $em->remove($room);
+        $em->flush();
+        
+        $rooms = $em->getRepository("BubbleDiagramBundle:Room")->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($room);
-            $em->flush($room);
-        }
-
-        return $this->redirectToRoute('room_index');
+        return $this->redirectToRoute('room_index', array(
+            'building_id' => $building_id,
+            'rooms' => $rooms,
+        ));
     }
 
     /**

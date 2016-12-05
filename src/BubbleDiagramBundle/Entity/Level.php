@@ -26,7 +26,7 @@ class Level
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=12, unique=true)
+     * @ORM\Column(name="name", type="string", length=12, unique=false)
      */
     private $name;
 
@@ -40,7 +40,7 @@ class Level
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=16, unique=true)
+     * @ORM\Column(name="color", type="string", length=16, unique=false)
      */
     private $color;
     

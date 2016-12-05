@@ -70,7 +70,7 @@ class RoomController extends Controller {
      * @Method("GET")
      */
     public function showAction(Room $room, $building_id) {
-        
+
         return $this->render('room/show.html.twig', array(
                     'building_id' => $building_id,
                     'room' => $room
@@ -84,7 +84,6 @@ class RoomController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Room $room, $building_id) {
-        $deleteForm = $this->createDeleteForm($room);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\RoomType', $room);
         $editForm->handleRequest($request);
 
@@ -94,13 +93,12 @@ class RoomController extends Controller {
             return $this->redirectToRoute('room_edit', array(
                         'id' => $room->getId(),
                         'building_id' => $building_id,
-                    ));
+            ));
         }
 
         return $this->render('room/edit.html.twig', array(
                     'room' => $room,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
                     'building_id' => $building_id,
         ));
     }
@@ -111,34 +109,18 @@ class RoomController extends Controller {
      * @Route("/delete/{id}", name="room_delete")
      */
     public function deleteAction($id, $building_id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $room = $em->getRepository("BubbleDiagramBundle:Room")->find($id);
         $em->remove($room);
         $em->flush();
-        
+
         $rooms = $em->getRepository("BubbleDiagramBundle:Room")->findAll();
 
         return $this->redirectToRoute('room_index', array(
-            'building_id' => $building_id,
-            'rooms' => $rooms,
+                    'building_id' => $building_id,
+                    'rooms' => $rooms,
         ));
-    }
-
-    /**
-     * Creates a form to delete a room entity.
-     *
-     * @param Room $room The room entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Room $room) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('room_delete', array(
-                                    'id' => $room->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
     }
 
 }

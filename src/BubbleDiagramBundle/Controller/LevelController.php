@@ -90,9 +90,9 @@ class LevelController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('level_edit', array(
+            return $this->redirectToRoute('level_index', array(
                         'building_id' => $building_id,
-                        'id' => $level->getId()));
+                        ));
         }
 
         return $this->render('level/edit.html.twig', array(

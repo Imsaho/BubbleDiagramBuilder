@@ -45,6 +45,8 @@ class ZoneController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+            $zone->setBuilding($building);
             $em->persist($zone);
             $em->flush($zone);
 
@@ -86,9 +88,9 @@ class ZoneController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('zone_edit', array(
-                        'building_id' => $building_id,
-                        'id' => $zone->getId()));
+            return $this->redirectToRoute('zone_index', array(
+                        'building_id' => $building_id
+                    ));
         }
 
         return $this->render('zone/edit.html.twig', array(

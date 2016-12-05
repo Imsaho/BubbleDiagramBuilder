@@ -13,7 +13,7 @@ class ZoneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('color')->add('building')        ;
+        $builder->add('name')->add('description')->add('color');
     }
     
     /**

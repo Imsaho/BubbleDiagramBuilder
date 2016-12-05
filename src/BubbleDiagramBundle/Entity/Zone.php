@@ -25,7 +25,7 @@ class Zone
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=false)
      */
     private $name;
 
@@ -39,7 +39,7 @@ class Zone
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=16, unique=true)
+     * @ORM\Column(name="color", type="string", length=16, unique=false)
      */
     private $color;
     

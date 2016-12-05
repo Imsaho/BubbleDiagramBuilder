@@ -43,10 +43,10 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('room_show', { 'id': room.id }) }}">szczegóły</a>
+                                        <a href="{{ path('room_show', { 'id': room.id, 'building_id': building_id }) }}">szczegóły</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('room_edit', { 'id': room.id }) }}">edytuj</a>
+                                        <a href="{{ path('room_edit', { 'id': room.id, 'building_id': building_id }) }}">edytuj</a>
                                     </li>
                                 </ul>
                             </td>
@@ -59,7 +59,7 @@
 
         <ul>
             <li>
-                <a href="{{ path('room_new') }}">Dodaj pomieszczenie</a>
+                <a href="{{ path('room_new', {'building_id': building_id}) }}">Dodaj pomieszczenie</a>
             </li>
         </ul>
         {% endblock %}

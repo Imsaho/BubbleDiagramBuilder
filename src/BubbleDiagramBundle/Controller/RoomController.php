@@ -24,7 +24,8 @@ class RoomController extends Controller {
     public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
-        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findAll();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+        $rooms = $em->getRepository('BubbleDiagramBundle:Room')->findByBuilding($building);
 
         return $this->render('room/index.html.twig', array(
                     'rooms' => $rooms,

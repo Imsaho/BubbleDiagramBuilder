@@ -176,6 +176,7 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $levels = $em->getRepository("BubbleDiagramBundle:Level")->findByBuilding($id);
         return array(
+            'building_id' => $id,
             'levels' => $levels);
     }
 
@@ -189,6 +190,7 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $zones = $em->getRepository("BubbleDiagramBundle:Zone")->findByBuilding($id);
         return array(
+            'building_id' => $id,
             'zones' => $zones);
     }
 

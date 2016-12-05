@@ -92,6 +92,12 @@ class Room
     private $zone;
     
     /**
+     * @ORM\ManyToOne (targetEntity="Building", inversedBy="rooms")
+     * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
+     */
+    private $building;
+    
+    /**
      * 
      * @ORM\ManyToMany(targetEntity="Room", mappedBy="myRooms")
      */
@@ -419,5 +425,28 @@ class Room
     
     public function __toString() {
         return $this->name;
+    }
+
+    /**
+     * Set building
+     *
+     * @param \BubbleDiagramBundle\Entity\Building $building
+     * @return Room
+     */
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
+    {
+        $this->building = $building;
+
+        return $this;
+    }
+
+    /**
+     * Get building
+     *
+     * @return \BubbleDiagramBundle\Entity\Building 
+     */
+    public function getBuilding()
+    {
+        return $this->building;
     }
 }

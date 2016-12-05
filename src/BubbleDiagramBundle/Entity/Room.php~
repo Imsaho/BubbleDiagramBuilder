@@ -92,6 +92,12 @@ class Room
     private $zone;
     
     /**
+     * @ORM\ManyToOne (targetEntity="Building", inversedBy="rooms")
+     * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
+     */
+    private $building;
+    
+    /**
      * 
      * @ORM\ManyToMany(targetEntity="Room", mappedBy="myRooms")
      */
@@ -349,5 +355,75 @@ class Room
     public function getZone()
     {
         return $this->zone;
+    }
+
+    /**
+     * Add roomsWithMe
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $roomsWithMe
+     * @return Room
+     */
+    public function addRoomsWithMe(\BubbleDiagramBundle\Entity\Room $roomsWithMe)
+    {
+        $this->roomsWithMe[] = $roomsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove roomsWithMe
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $roomsWithMe
+     */
+    public function removeRoomsWithMe(\BubbleDiagramBundle\Entity\Room $roomsWithMe)
+    {
+        $this->roomsWithMe->removeElement($roomsWithMe);
+    }
+
+    /**
+     * Get roomsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoomsWithMe()
+    {
+        return $this->roomsWithMe;
+    }
+
+    /**
+     * Add myRooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $myRooms
+     * @return Room
+     */
+    public function addMyRoom(\BubbleDiagramBundle\Entity\Room $myRooms)
+    {
+        $this->myRooms[] = $myRooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove myRooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $myRooms
+     */
+    public function removeMyRoom(\BubbleDiagramBundle\Entity\Room $myRooms)
+    {
+        $this->myRooms->removeElement($myRooms);
+    }
+
+    /**
+     * Get myRooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyRooms()
+    {
+        return $this->myRooms;
+    }
+    
+    public function __toString() {
+        return $this->name;
     }
 }

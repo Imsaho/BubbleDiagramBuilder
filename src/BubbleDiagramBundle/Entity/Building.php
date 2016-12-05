@@ -79,10 +79,16 @@ class Building {
      * @ORM\OneToMany(targetEntity="Level", mappedBy="building")
      */
     private $levels;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="building")
+     */
+    private $rooms;
 
     public function __construct() {
         $this->zones = new ArrayCollection();
         $this->levels = new ArrayCollection();
+        $this->rooms = new ArrayCollection();
     }
 
     /**
@@ -329,4 +335,37 @@ class Building {
         return $totalPeople;
     }
 
+
+    /**
+     * Add rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     * @return Building
+     */
+    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms[] = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     */
+    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms->removeElement($rooms);
+    }
+
+    /**
+     * Get rooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
 }

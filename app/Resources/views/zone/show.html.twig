@@ -12,7 +12,7 @@
         <a href="{{ path('zone_index', {'building_id': zone.building.id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
     <li>
-        <a href="{{ path('room_index') }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
+        <a href="{{ path('room_index', {'building_id': zone.building.id}) }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
     </li>
 
 {% endblock menu_item %}

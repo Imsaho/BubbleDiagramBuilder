@@ -61,15 +61,13 @@
     <div class="col-lg-12">
         <ul>
             <li>
-                <a href="{{ path('room_index') }}">Back to the list</a>
+{#                <a href="{{ path('room_index', {'building_id': room.building.getId()}) }}">Back to the list</a>#}
             </li>
             <li>
-                <a href="{{ path('room_edit', { 'id': room.id }) }}">Edit</a>
+{#                <a href="{{ path('room_edit', { 'id': room.id, {'building_id': room.building.getId()} }) }}">Edit</a>#}
             </li>
             <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-                {{ form_end(delete_form) }}
+
             </li>
         </ul>
     </div>

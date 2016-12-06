@@ -52,9 +52,6 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $buildings = $em->getRepository('BubbleDiagramBundle:Building')->findAll();
-
-
-
         return $this->render('building/index.html.twig', array(
                     'buildings' => $buildings,
         ));
@@ -92,13 +89,13 @@ class BuildingController extends Controller {
      * @Route("/{id}", name="building_show")
      * @Method("GET")
      */
-    public function showAction(Building $building) {
+    public function showAction($id) {
 
-        $deleteForm = $this->createDeleteForm($building);
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
 
         return $this->render('building/show.html.twig', array(
                     'building' => $building,
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -134,20 +131,20 @@ class BuildingController extends Controller {
     /**
      * Deletes a building entity.
      *
-     * @Route("/{id}", name="building_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="building_delete")
      */
-    public function deleteAction(Request $request, Building $building) {
-        $form = $this->createDeleteForm($building);
-        $form->handleRequest($request);
+    public function deleteAction($id) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($building);
-            $em->flush($building);
-        }
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
+        $em->remove($building);
+        $em->flush();
 
-        return $this->redirectToRoute('building_index');
+        $buildings = $em->getRepository("BubbleDiagramBundle:Building")->findAll();
+
+        return $this->redirectToRoute('building_index', array(
+                    'buildings' => $buildings,
+        ));
     }
 
     /**

@@ -46,6 +46,9 @@
                                     <li>
                                         <a href="{{ path('building_edit', { 'id': building.id }) }}">edytuj</a>
                                     </li>
+                                    <li>
+                                        <a class="askdelete" href="{{ path('building_delete', {'id': building.id}) }}">usuń</a>
+                                    </li>
                                 </ul>
                             </td>
                         </tr>

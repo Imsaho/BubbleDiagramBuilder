@@ -121,7 +121,7 @@ class BuildingController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('building_edit', array(
+            return $this->redirectToRoute('building_index', array(
                         'id' => $building->getId()));
         }
 

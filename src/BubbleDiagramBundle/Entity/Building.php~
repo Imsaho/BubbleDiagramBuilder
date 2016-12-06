@@ -25,7 +25,7 @@ class Building {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
@@ -335,4 +335,37 @@ class Building {
         return $totalPeople;
     }
 
+
+    /**
+     * Add rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     * @return Building
+     */
+    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms[] = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove rooms
+     *
+     * @param \BubbleDiagramBundle\Entity\Room $rooms
+     */
+    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms)
+    {
+        $this->rooms->removeElement($rooms);
+    }
+
+    /**
+     * Get rooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
 }

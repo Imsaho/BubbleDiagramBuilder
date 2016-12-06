@@ -4,6 +4,8 @@ namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Building
@@ -25,7 +27,9 @@ class Building {
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Wpisz nazwę")
+     * @Assert\Length(min=3, minMessage="Nazwa powinna mieć długość conajmniej 3 znakow")
      */
     private $name;
 
@@ -47,6 +51,10 @@ class Building {
      * @var float
      *
      * @ORM\Column(name="NBA_factor", type="float")
+     * @Assert\NotNull (message="Podaj współczynnik NBA z przedziału 0-1")
+     * @Assert\Range (min=0.01, max=1.00, 
+     *                                  minMessage = "Wartość mnie może być mniejsza niż 0.01",
+     *                                  maxMessage = "Wartość nie może być większa niż 1.00")
      */
     private $NBAFactor;
 
@@ -54,6 +62,8 @@ class Building {
      * @var string
      *
      * @ORM\Column(name="coordinates", type="string", length=255, nullable=true)
+     * @Assert\Regex (pattern="/^(\\-?\\d+(\\.\\d+)?),\\s*(\\-?\\d+(\\.\\d+)?)$/",
+     *                                  message="Współrzędne powinny być podane w formacie, np: 52.152329, 20.900695")
      */
     private $coordinates;
 

@@ -5,10 +5,20 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
+    <form action="{{ path('building_new') }}" method="POST" novalidate="novalidate">
+        {{ form_errors(form.name) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.NBAFactor) }}
+        {{ form_row(form.coordinates) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.team) }}
+
+        {{ form_rest(form) }}
+
         <input type="submit" value="Create" />
-    {{ form_end(form) }}
+
+    </form>
 
     <ul>
         <li>

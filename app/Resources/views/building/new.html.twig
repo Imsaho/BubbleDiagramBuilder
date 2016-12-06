@@ -6,7 +6,7 @@
 {% block body %}
 
     <form action="{{ path('building_new') }}" method="POST" novalidate="novalidate">
-        {{ form_errors(form.name) }}
+{#        {{ form_errors(form.name) }}#}
 
         {{ form_row(form.name) }}
         {{ form_row(form.NBAFactor) }}

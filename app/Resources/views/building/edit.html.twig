@@ -3,17 +3,38 @@
 {% block page_header %}Budynek{% endblock page_header %}
 {% block small_header %}edytuj{% endblock small_header %}
 
-{% block body %}
+{#{% block body %}
 
     {{ form_start(edit_form) }}
     {{ form(edit_form, {'attr': {'novalidate': 'novalidate'} } ) }}
+    {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
     <input type="submit" value="Zapisz zmiany" />
     {{ form_end(edit_form) }}
 
-    {{ form_start(delete_form) }}
-    <input type="submit" value="Usuń">
-    {{ form_end(delete_form) }}
-    <a href="{{ path('building_index') }}">Powrót do listy</a>
+{% endblock %}#}
 
+{% block body %}
+
+    <form action="{{ path('building_edit', {'id': id}) }}" method="POST" novalidate="novalidate">
+
+{#        {{ form_row(edit_form.name) }}
+        {{ form_row(edit_form.NBAFactor) }}
+        {{ form_row(edit_form.coordinates) }}
+        {{ form_row(edit_form.description) }}
+        {{ form_row(edit_form.team) }}#}
+
+        {{ form_widget(edit_form) }}
+
+        {{ form_rest(edit_form) }}
+
+        <input type="submit" value="Zapisz zmiany" />
+
+    </form>
+
+    <ul>
+        <li>
+            <a href="{{ path('building_index') }}">Back to the list</a>
+        </li>
+    </ul>
 {% endblock %}

@@ -62,7 +62,7 @@ class Building {
      * @var string
      *
      * @ORM\Column(name="coordinates", type="string", length=255, nullable=true)
-     * @Assert\Regex (pattern="/^(\\-?\\d+(\\.\\d+)?),\\s*(\\-?\\d+(\\.\\d+)?)$/",
+     * @Assert\Regex (pattern="/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/",
      *                                  message="Współrzędne powinny być podane w formacie, np: 52.152329, 20.900695")
      */
     private $coordinates;

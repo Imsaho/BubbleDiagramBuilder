@@ -114,7 +114,6 @@ class BuildingController extends Controller {
 //            return new Response("Nie masz uprawnień!");
 //        }
 
-        $deleteForm = $this->createDeleteForm($building);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);
 
@@ -128,7 +127,7 @@ class BuildingController extends Controller {
         return $this->render('building/edit.html.twig', array(
                     'building' => $building,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'id' => $building->getId(),
         ));
     }
 

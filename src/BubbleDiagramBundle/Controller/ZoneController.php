@@ -22,12 +22,15 @@ class ZoneController extends Controller {
      * @Route("/", name="zone_index")
      * @Method("GET")
      */
-    public function indexAction() {
+    public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
-        $zones = $em->getRepository('BubbleDiagramBundle:Zone')->findAll();
+        $building = $em->getRepository("BubbleDiagramBundle:Zone")->find($building_id);
+        $zones = $em->getRepository('BubbleDiagramBundle:Zone')->findByBuilding($building);
 
         return $this->render('zone/index.html.twig', array(
+                    'building' => $building,
+                    'building_id' => $building_id,
                     'zones' => $zones,
         ));
     }
@@ -50,7 +53,7 @@ class ZoneController extends Controller {
             $em->persist($zone);
             $em->flush($zone);
 
-            return $this->redirectToRoute('zone_show', array(
+            return $this->redirectToRoute('zone_index', array(
                         'building_id' => $building_id,
                         'id' => $zone->getId()));
         }
@@ -90,7 +93,7 @@ class ZoneController extends Controller {
 
             return $this->redirectToRoute('zone_index', array(
                         'building_id' => $building_id
-                    ));
+            ));
         }
 
         return $this->render('zone/edit.html.twig', array(

@@ -1,71 +1,66 @@
-{% extends 'base.html.twig' %}
+{% extends 'building/show.html.twig' %}
 
 {% block page_header %}Kondygnacje{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block menu_item %}
-
-    <li>
-        <a href="{{ path('level_index', {'building_id': building_id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
-    </li>
-    <li>
-        <a href="{{ path('zone_index', {'building_id': building_id})  }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
-    </li>
-    <li>
-        <a href="{{ path('room_index', {'building_id': building_id}) }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
-    </li>
+    
+    {{ parent() }}
 
 {% endblock menu_item %}
 
 {% block body %}
-    {#<h1>Levels list</h1>#}
 
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class ="table table-hover">
-                <thead>
-                    <tr>
-
-                        <th>Name</th>
-
-                        <th>NBA [m<sup>2</sup>]</th>
-                        <th>Populacja</th>
-                        <th>Pomieszczenia</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for level in levels %}
+            {% if (levels | length) == 0 %}
+                <p>Brak kondygnacji w tym budynku</p>
+            {% else %}
+                <table class ="table table-hover">
+                    <thead>
                         <tr>
 
-                            <td>{{ level.name }}</td>
-                            <td>{{ level.calculateLevelNBA() }}</td>
-                            <td>{{ level.calculatePeopleOnLevel() }}</td>
+                            <th>Name</th>
 
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('all_rooms_on_level', { 'id': level.id, 'building_id': level.building.id }) }}">pokaż wszystkie</a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('level_show', { 'id': level.id, 'building_id': level.building.id }) }}">show</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('level_edit', { 'id': level.id, 'building_id': level.building.id  }) }}">edit</a>
-                                    </li>
-                                    <li>
-                                        <a class="askdelete" href="{{ path('level_delete', { 'id': level.id, 'building_id': level.building.id  }) }}">delete</a>
-                                    </li>
-                                </ul>
-                            </td>
+                            <th>NBA [m<sup>2</sup>]</th>
+                            <th>Populacja</th>
+                            <th>Pomieszczenia</th>
+                            <th>Actions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for level in levels %}
+                            <tr>
+
+                                <td>{{ level.name }}</td>
+                                <td>{{ level.calculateLevelNBA() }}</td>
+                                <td>{{ level.calculatePeopleOnLevel() }}</td>
+
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('all_rooms_on_level', { 'id': level.id, 'building_id': level.building.id }) }}">pokaż wszystkie</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('level_show', { 'id': level.id, 'building_id': level.building.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('level_edit', { 'id': level.id, 'building_id': level.building.id  }) }}">edit</a>
+                                        </li>
+                                        <li>
+                                            <a class="askdelete" href="{{ path('level_delete', { 'id': level.id, 'building_id': level.building.id  }) }}">delete</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 

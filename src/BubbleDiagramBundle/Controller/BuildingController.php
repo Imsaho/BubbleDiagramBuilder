@@ -23,10 +23,12 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
         $teamId = $building->getTeam();
-        dump($teamId); die();
+        dump($teamId);
+        die();
         $team = $em->getRepository("BubbleDiagramBundle:Team")->find($teamId);
         //$teamUsers = $team->getUsers();
-        dump($team); die();
+        dump($team);
+        die();
         if ($teamUsers != null) {
             foreach ($teamUsers as $user) {
                 if ($user->getId() != $currentUserId) {
@@ -174,8 +176,10 @@ class BuildingController extends Controller {
     public function showRoomsByLevel($id) {
 
         $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
         $levels = $em->getRepository("BubbleDiagramBundle:Level")->findByBuilding($id);
         return array(
+            'building' => $building,
             'building_id' => $id,
             'levels' => $levels);
     }
@@ -188,8 +192,10 @@ class BuildingController extends Controller {
      */
     public function showRoomsByZone($id) {
         $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
         $zones = $em->getRepository("BubbleDiagramBundle:Zone")->findByBuilding($id);
         return array(
+            'building' => $building,
             'building_id' => $id,
             'zones' => $zones);
     }

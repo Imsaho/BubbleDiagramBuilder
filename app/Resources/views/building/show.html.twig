@@ -8,11 +8,22 @@
     <li>
         <a href="{{ path('level_index', {'building_id': building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
     </li>
-    <li>
+    <li>        
         <a href="{{ path('zone_index', {'building_id': building.id}) }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
     </li>
     <li>
-        <a href="{{ path('room_index', {'building_id': building.id}) }}"><i class="fa fa-fw fa-circle"></i> Pomieszczenia</a>
+
+        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-th"></i> Pomieszczenia<i class="fa fa-fw fa-caret-down"></i></a>
+
+        <ul id="demo" class="collapse">
+            <li>
+                <a href="{{ path('all_rooms_by_level', {'id': building.id}) }}">wg kondygnacji </a>
+            </li>
+            <li>
+                <a href="{{ path('all_rooms_by_zone', {'id': building.id}) }}"> wg strefy </a>
+            </li>
+        </ul>
+
     </li>
 
 {% endblock menu_item %}
@@ -74,9 +85,9 @@
         <input type="submit" value="Usuń">
         {{ form_end(delete_form) }}
     </div>
-        <div align="center">
-            {% block img %}
-                <img src="{{ asset('img/bubbleDiagram_2.jpg') }}" width="75%" height="75%"/>
-            {% endblock %}
-        </div>
+    <div align="center">
+        {% block img %}
+            <img src="{{ asset('img/bubbleDiagram_2.jpg') }}" width="75%" height="75%"/>
+        {% endblock %}
+    </div>
 {% endblock body %}

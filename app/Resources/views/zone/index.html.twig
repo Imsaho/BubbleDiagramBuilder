@@ -1,19 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'building/show.html.twig' %}
 
 {% block page_header %}Strefy{% endblock page_header %}
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block menu_item %}
 
-    <li>
-        <a href="{{ path('level_index', {'building_id': zones[0].building.id}) }}"><i class="fa fa-fw  fa-list"></i> Kondygnacje</a>
-    </li>
-    <li>
-        <a href="{{ path('zone_index', {'building_id': zones[0].building.id}) }}"><i class="fa fa-fw  fa-circle"></i> Strefy</a>
-    </li>
-    <li>
-        <a href="{{ path('room_index', {'building_id': zones[0].building.id}) }}"><i class="fa fa-fw  fa-square-o"></i> Pomieszczenia</a>
-    </li>
+    {{ parent() }}
 
 {% endblock menu_item %}
 
@@ -22,58 +14,65 @@
 
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class ="table table-hover">
-                <thead>
-                    <tr>
-
-                        <th>Nazwa</th>
-
-                        <th># kolor</th>
-                        <th>NBA [m<sup>2</sup>]</th>
-                        <th>Populacja</th>
-                        <th>Pomieszczenia</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for zone in zones %}
+            {% if (zones | length) == 0 %}
+                <p>Brak stref w tym budynku</p>
+            {% else %}
+                <table class ="table table-hover">
+                    <thead>
                         <tr>
 
-                            <td>{{ zone.name }}</td>
+                            <th>Nazwa</th>
 
-                            <td bgcolor="{{ zone.color }}"></td>
-                            <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
-                            <td>{{ zone.calculatePeopleInZone() }}</td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('all_rooms_in_zone', { 'id': zone.id, 'building_id': zone.building.id }) }}">pokaż wszystkie</a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('zone_show', { 'id': zone.id, 'building_id': zone.building.id }) }}">szczegóły</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('zone_edit', { 'id': zone.id, 'building_id': zone.building.id }) }}">edytuj</a>
-                                    </li>
-                                    <li>
-                                        <a class="askdelete" href="{{ path('zone_delete', { 'id': zone.id, 'building_id': zone.building.id }) }}">usuń</a>
-                                    </li>
-                                </ul>
-                            </td>
+                            <th># kolor</th>
+                            <th>NBA [m<sup>2</sup>]</th>
+                            <th>Populacja</th>
+                            <th>Pomieszczenia</th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+
+
+                        {% for zone in zones %}
+                            <tr>
+
+                                <td>{{ zone.name }}</td>
+
+                                <td bgcolor="{{ zone.color }}"></td>
+                                <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
+                                <td>{{ zone.calculatePeopleInZone() }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('all_rooms_in_zone', { 'id': zone.id, 'building_id': zone.building.id }) }}">pokaż wszystkie</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('zone_show', { 'id': zone.id, 'building_id': zone.building.id }) }}">szczegóły</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('zone_edit', { 'id': zone.id, 'building_id': zone.building.id }) }}">edytuj</a>
+                                        </li>
+                                        <li>
+                                            <a class="askdelete" href="{{ path('zone_delete', { 'id': zone.id, 'building_id': zone.building.id }) }}">usuń</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            {% endif %}
         </div>
     </div>
 
     <ul>
         <li>
-            <a href="{{ path('zone_new', {'building_id': zones[0].building.id}) }}">Dodaj nową strefę</a>
+            <a href="{{ path('zone_new', {'building_id': building_id}) }}">Dodaj nową strefę</a>
         </li>
     </ul>
 {% endblock %}

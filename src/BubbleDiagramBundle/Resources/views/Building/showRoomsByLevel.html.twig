@@ -1,8 +1,12 @@
-{% extends '/room/index.html.twig' %}
+{% extends 'building/show.html.twig' %}
 
 
 {% block page_header %}Pomieszczenia{% endblock page_header %}
 {% block small_header %}wg kondygnacji{% endblock small_header %}
+
+{% block menu_item %}
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
 
@@ -15,9 +19,9 @@
                     <th>Strefa</th>
                     <th>Nazwa</th>
                     <th>Powierzchnia</th>
-                    
-                    
-                    
+
+
+
                     <th>Liczba osób</th>
                     <th>Kontrola dostępu</th>
                     <th></th>
@@ -26,18 +30,18 @@
             <tbody>
                 {% for level in levels %}
                     <tr><th colspan="7">Kondygnacja {{ level.name }}</th>
-                   
+
                     </tr>
                     {% for room in level.getRooms() %}
                         <tr>
-                            
+
                             <td>{{ room.number }}</td>
                             <td bgcolor="{{ room.zone.color }}"></td>
                             <td>{{ room.name }}</td>
                             <td>{{ room.area }} m<sup>2</sup></td>
-                            
-                            
-                           
+
+
+
                             <td>{{ room.maxPersonAmount }}</td>
                             <td>{% if room.accessControl %}Tak{% else %}Nie{% endif %}</td>
                             <td>
@@ -51,15 +55,15 @@
                                 </ul>
                             </td>
                         </tr>
-                        {% endfor %}
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-        <ul>
-            <li>
-                <a href="{{ path('room_new', {'building_id': building_id}) }}">Dodaj pomieszczenie</a>
-            </li>
-        </ul>
-        {% endblock %}
+    <ul>
+        <li>
+            <a href="{{ path('room_new', {'building_id': building_id}) }}">Dodaj pomieszczenie</a>
+        </li>
+    </ul>
+{% endblock %}

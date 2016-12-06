@@ -25,9 +25,11 @@ class LevelController extends Controller {
     public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
-        $levels = $em->getRepository('BubbleDiagramBundle:Level')->findByBuilding($building_id);
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+        $levels = $em->getRepository('BubbleDiagramBundle:Level')->findByBuilding($building);
 
         return $this->render('level/index.html.twig', array(
+                    'building' => $building,
                     'building_id' => $building_id,
                     'levels' => $levels,
         ));
@@ -51,7 +53,7 @@ class LevelController extends Controller {
             $em->persist($level);
             $em->flush($level);
 
-            return $this->redirectToRoute('level_show', array(
+            return $this->redirectToRoute('level_index', array(
                         'building_id' => $building_id,
                         'id' => $level->getId()));
         }
@@ -92,7 +94,7 @@ class LevelController extends Controller {
 
             return $this->redirectToRoute('level_index', array(
                         'building_id' => $building_id,
-                        ));
+            ));
         }
 
         return $this->render('level/edit.html.twig', array(

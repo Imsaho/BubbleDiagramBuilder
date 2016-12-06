@@ -42,13 +42,14 @@ class ZoneController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $building_id) {
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
         $zone = new Zone();
         $form = $this->createForm('BubbleDiagramBundle\Form\ZoneType', $zone);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+
             $zone->setBuilding($building);
             $em->persist($zone);
             $em->flush($zone);
@@ -59,6 +60,7 @@ class ZoneController extends Controller {
         }
 
         return $this->render('zone/new.html.twig', array(
+                    'building' => $building,
                     'zone' => $zone,
                     'form' => $form->createView(),
         ));

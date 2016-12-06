@@ -42,13 +42,13 @@ class LevelController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $building_id) {
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
         $level = new Level();
         $form = $this->createForm('BubbleDiagramBundle\Form\LevelType', $level);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
             $level->setBuilding($building);
             $em->persist($level);
             $em->flush($level);
@@ -59,6 +59,7 @@ class LevelController extends Controller {
         }
 
         return $this->render('level/new.html.twig', array(
+                    'building' => $building,
                     'level' => $level,
                     'form' => $form->createView(),
         ));

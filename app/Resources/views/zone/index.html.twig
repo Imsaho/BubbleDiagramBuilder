@@ -4,9 +4,7 @@
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block menu_item %}
-
     {{ parent() }}
-
 {% endblock menu_item %}
 
 {% block body %}
@@ -70,9 +68,6 @@
         </div>
     </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('zone_new', {'building_id': building_id}) }}">Dodaj nową strefę</a>
-        </li>
-    </ul>
+    <a href="{{ path('zone_new', {'building_id': building_id}) }}">Dodaj nową strefę</a>
+
 {% endblock %}

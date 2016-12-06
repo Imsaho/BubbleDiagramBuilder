@@ -1,19 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'building/show.html.twig' %}
 
 {% block page_header %}Strefa{% endblock page_header %}
 {% block small_header %}dodaj{% endblock small_header %}
 
+{% block menu_item %}
+    {{ parent() }}
+{% endblock menu_item %}
+
 {% block body %}
-{#    <h1>Zone creation</h1>#}
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-{#    <ul>
-        <li>
-            <a href="{{ path('zone_index') }}">Back to the list</a>
-        </li>
-    </ul>#}
 {% endblock %}

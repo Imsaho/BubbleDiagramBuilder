@@ -40,13 +40,17 @@ class RoomController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $building_id) {
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
         $room = new Room();
-        $form = $this->createForm('BubbleDiagramBundle\Form\RoomType', $room);
+        $form = $this->createForm('BubbleDiagramBundle\Form\RoomType', $room, array(
+            'data_class' => 'BubbleDiagramBundle\Entity\Room',
+            'building_id' => $building_id,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
+
             $room->setBuilding($building);
             $em->persist($room);
             $em->flush($room);
@@ -57,6 +61,7 @@ class RoomController extends Controller {
         }
 
         return $this->render('room/new.html.twig', array(
+                    'building' => $building,
                     'building_id' => $building_id,
                     'room' => $room,
                     'form' => $form->createView(),

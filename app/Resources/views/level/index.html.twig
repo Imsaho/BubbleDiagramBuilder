@@ -4,9 +4,7 @@
 {% block small_header %}wszystkie{% endblock small_header %}
 
 {% block menu_item %}
-    
     {{ parent() }}
-
 {% endblock menu_item %}
 
 {% block body %}
@@ -64,10 +62,6 @@
         </div>
     </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('level_new', {'building_id': building_id}) }}">Create a new level</a>
-        </li>
-    </ul>
+    <a href="{{ path('level_new', {'building_id': building_id}) }}">Create a new level</a>
 
 {% endblock %}

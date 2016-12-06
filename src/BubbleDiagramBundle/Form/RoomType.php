@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use BubbleDiagramBundle\Repository\LevelRepository;
+use BubbleDiagramBundle\Repository\ZoneRepository;
 
 class RoomType extends AbstractType {
 
@@ -34,7 +35,16 @@ class RoomType extends AbstractType {
                             ->setParameter('building_id', $building_id);
                     }
                 ))
-                ->add('zone')
+                ->add('zone', EntityType::class, array(
+                    'class' => 'BubbleDiagramBundle:Zone',
+                    'query_builder' => function (ZoneRepository $er) use ($building_id) {
+                    return $er->createQueryBuilder('zone')
+                            ->select('u')
+                            ->from('BubbleDiagramBundle:Zone', 'u')
+                            ->where('u.building = :building_id')
+                            ->setParameter('building_id', $building_id);
+                    }
+                ))
                 ->add('myRooms');
     }
 

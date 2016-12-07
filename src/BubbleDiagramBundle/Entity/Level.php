@@ -5,6 +5,7 @@ namespace BubbleDiagramBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use BubbleDiagramBundle\Entity\Room;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Level
@@ -12,8 +13,8 @@ use BubbleDiagramBundle\Entity\Room;
  * @ORM\Table(name="level")
  * @ORM\Entity(repositoryClass="BubbleDiagramBundle\Repository\LevelRepository")
  */
-class Level
-{
+class Level {
+
     /**
      * @var int
      *
@@ -27,6 +28,8 @@ class Level
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=12, unique=false)
+     * @Assert\NotBlank (message="Wpisz nazwę")
+     * @Assert\Length (min=3, minMessage="Nazwa powinna mieć długość co najmniej 3 znaków")
      */
     private $name;
 
@@ -34,6 +37,7 @@ class Level
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * 
      */
     private $description;
 
@@ -41,15 +45,18 @@ class Level
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=16, unique=false)
+     * @Assert\NotBlank (message="Wybierz kolor")
+     * @Assert\Regex (pattern="/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+     *                                  message="Kolor w formacie szesnastkowym, np. #a5bf4a")
      */
     private $color;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Building", inversedBy="levels")
      * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
      */
     private $building;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Room", mappedBy="level", cascade={"remove"})
      */
@@ -64,8 +71,7 @@ class Level
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -75,8 +81,7 @@ class Level
      * @param string $name
      * @return Level
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -87,8 +92,7 @@ class Level
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -98,8 +102,7 @@ class Level
      * @param string $description
      * @return Level
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -110,8 +113,7 @@ class Level
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -121,8 +123,7 @@ class Level
      * @param string $color
      * @return Level
      */
-    public function setColor($color)
-    {
+    public function setColor($color) {
         $this->color = $color;
 
         return $this;
@@ -133,8 +134,7 @@ class Level
      *
      * @return string 
      */
-    public function getColor()
-    {
+    public function getColor() {
         return $this->color;
     }
 
@@ -144,8 +144,8 @@ class Level
      * @param \BubbleDiagramBundle\Entity\Building $building
      * @return Level
      */
-    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
-    {
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building =
+    null) {
         $this->building = $building;
 
         return $this;
@@ -156,8 +156,7 @@ class Level
      *
      * @return \BubbleDiagramBundle\Entity\Building 
      */
-    public function getBuilding()
-    {
+    public function getBuilding() {
         return $this->building;
     }
 
@@ -167,8 +166,7 @@ class Level
      * @param \BubbleDiagramBundle\Entity\Room $rooms
      * @return Level
      */
-    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms)
-    {
+    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms) {
         $this->rooms[] = $rooms;
 
         return $this;
@@ -179,8 +177,7 @@ class Level
      *
      * @param \BubbleDiagramBundle\Entity\Room $rooms
      */
-    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms)
-    {
+    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms) {
         $this->rooms->removeElement($rooms);
     }
 
@@ -189,15 +186,14 @@ class Level
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRooms()
-    {
+    public function getRooms() {
         return $this->rooms;
     }
-    
+
     public function __toString() {
         return $this->name;
     }
-    
+
     public function calculateLevelNBA() {
         $levelNBA = 0;
         foreach ($this->rooms as $room) {
@@ -206,7 +202,7 @@ class Level
         }
         return $levelNBA;
     }
-    
+
     public function calculatePeopleOnLevel() {
         $people = 0;
         foreach ($this->rooms as $room) {
@@ -215,4 +211,5 @@ class Level
         }
         return $people;
     }
+
 }

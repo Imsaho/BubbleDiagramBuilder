@@ -4,6 +4,7 @@ namespace BubbleDiagramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Zone
@@ -26,6 +27,8 @@ class Zone {
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=false)
+     * @Assert\NotBlank (message="Wpisz nazwę")
+     * @Assert\Length (min=3, minMessage="Nazwa powinna mieć długość co najmniej 3 znaków")
      */
     private $name;
 
@@ -40,6 +43,9 @@ class Zone {
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=16, unique=false)
+     * @Assert\NotBlank (message="Wybierz kolor")
+     * @Assert\Regex (pattern="/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+     *                                  message="Kolor w formacie szesnastkowym, np. #a5bf4a")
      */
     private $color;
 

@@ -5,6 +5,7 @@ namespace BubbleDiagramBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use BubbleDiagramBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Team
@@ -27,6 +28,8 @@ class Team {
      * @var string
      * 
      * @ORM\Column(name="name", type="string", length=50)
+     * @Assert\NotBlank (message="Wpisz nazwę")
+     * @Assert\Length (min=3, minMessage="Nazwa powinna mieć długość co najmniej 3 znaków")
      */
     private $name;
 

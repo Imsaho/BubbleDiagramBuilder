@@ -51,7 +51,7 @@ class Level
     private $building;
     
     /**
-     * @ORM\OneToMany(targetEntity="Room", mappedBy="level")
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="level", cascade={"remove"})
      */
     private $rooms;
 

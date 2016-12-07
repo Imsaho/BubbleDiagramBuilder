@@ -26,7 +26,7 @@ class Room
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=16, unique=true)
+     * @ORM\Column(name="number", type="string", length=16, unique=false)
      */
     private $number;
 

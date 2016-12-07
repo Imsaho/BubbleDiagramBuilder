@@ -55,9 +55,11 @@ class RoomController extends Controller {
             $em->persist($room);
             $em->flush($room);
 
-            return $this->redirectToRoute('room_show', array(
-                        'id' => $room->getId(),
-                        'building_id' => $building_id));
+            return $this->redirectToRoute('all_rooms_by_level', array(
+                        'id' => $building_id,
+                        'building_id' => $building_id,
+                        'building' => $building,
+            ));
         }
 
         return $this->render('room/new.html.twig', array(
@@ -89,15 +91,22 @@ class RoomController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Room $room, $building_id) {
-        $editForm = $this->createForm('BubbleDiagramBundle\Form\RoomType', $room);
+        $editForm = $this->createForm('BubbleDiagramBundle\Form\RoomType', $room, array(
+            'data_class' => 'BubbleDiagramBundle\Entity\Room',
+            'building_id' => $building_id,
+        ));
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
 
-            return $this->redirectToRoute('room_edit', array(
-                        'id' => $room->getId(),
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $em->flush();
+            return $this->redirectToRoute('all_rooms_by_level', array(
+                        'id' => $building_id,
                         'building_id' => $building_id,
+                        'building' => $building,
             ));
         }
 
@@ -105,6 +114,7 @@ class RoomController extends Controller {
                     'room' => $room,
                     'edit_form' => $editForm->createView(),
                     'building_id' => $building_id,
+                    'building' => $building,
         ));
     }
 

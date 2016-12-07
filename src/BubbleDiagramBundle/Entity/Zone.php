@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="zone")
  * @ORM\Entity(repositoryClass="BubbleDiagramBundle\Repository\ZoneRepository")
  */
-class Zone
-{
+class Zone {
+
     /**
      * @var int
      *
@@ -42,30 +42,28 @@ class Zone
      * @ORM\Column(name="color", type="string", length=16, unique=false)
      */
     private $color;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Building", inversedBy="zones")
      * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
      */
     private $building;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="Room", mappedBy="zone")
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="zone", cascade={"remove"})
      */
     private $rooms;
-    
+
     public function __construct() {
         $this->rooms = new ArrayCollection();
     }
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -75,8 +73,7 @@ class Zone
      * @param string $name
      * @return Zone
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -87,8 +84,7 @@ class Zone
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -98,8 +94,7 @@ class Zone
      * @param string $description
      * @return Zone
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -110,8 +105,7 @@ class Zone
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -121,8 +115,7 @@ class Zone
      * @param string $color
      * @return Zone
      */
-    public function setColor($color)
-    {
+    public function setColor($color) {
         $this->color = $color;
 
         return $this;
@@ -133,8 +126,7 @@ class Zone
      *
      * @return string 
      */
-    public function getColor()
-    {
+    public function getColor() {
         return $this->color;
     }
 
@@ -144,8 +136,8 @@ class Zone
      * @param \BubbleDiagramBundle\Entity\Building $building
      * @return Zone
      */
-    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building = null)
-    {
+    public function setBuilding(\BubbleDiagramBundle\Entity\Building $building =
+    null) {
         $this->building = $building;
 
         return $this;
@@ -156,8 +148,7 @@ class Zone
      *
      * @return \BubbleDiagramBundle\Entity\Building 
      */
-    public function getBuilding()
-    {
+    public function getBuilding() {
         return $this->building;
     }
 
@@ -167,8 +158,7 @@ class Zone
      * @param \BubbleDiagramBundle\Entity\Room $rooms
      * @return Zone
      */
-    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms)
-    {
+    public function addRoom(\BubbleDiagramBundle\Entity\Room $rooms) {
         $this->rooms[] = $rooms;
 
         return $this;
@@ -179,8 +169,7 @@ class Zone
      *
      * @param \BubbleDiagramBundle\Entity\Room $rooms
      */
-    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms)
-    {
+    public function removeRoom(\BubbleDiagramBundle\Entity\Room $rooms) {
         $this->rooms->removeElement($rooms);
     }
 
@@ -189,15 +178,14 @@ class Zone
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRooms()
-    {
+    public function getRooms() {
         return $this->rooms;
     }
-    
-        public function __toString() {
+
+    public function __toString() {
         return $this->name;
     }
-    
+
     public function calculateZoneNBA() {
         $zoneNBA = 0;
         foreach ($this->rooms as $room) {
@@ -206,7 +194,7 @@ class Zone
         }
         return $zoneNBA;
     }
-    
+
     public function calculatePeopleInZone() {
         $people = 0;
         foreach ($this->rooms as $room) {
@@ -215,4 +203,5 @@ class Zone
         }
         return $people;
     }
+
 }

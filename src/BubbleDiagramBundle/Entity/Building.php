@@ -81,17 +81,17 @@ class Building {
     private $team;
 
     /**
-     * @ORM\OneToMany(targetEntity="Zone", mappedBy="building")
+     * @ORM\OneToMany(targetEntity="Zone", mappedBy="building", cascade={"remove"})
      */
     private $zones;
 
     /**
-     * @ORM\OneToMany(targetEntity="Level", mappedBy="building")
+     * @ORM\OneToMany(targetEntity="Level", mappedBy="building", cascade={"remove"})
      */
     private $levels;
     
     /**
-     * @ORM\OneToMany(targetEntity="Room", mappedBy="building")
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="building", cascade={"remove"})
      */
     private $rooms;
 

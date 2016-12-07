@@ -25,7 +25,7 @@ class ZoneController extends Controller {
     public function indexAction($building_id) {
         $em = $this->getDoctrine()->getManager();
 
-        $building = $em->getRepository("BubbleDiagramBundle:Zone")->find($building_id);
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
         $zones = $em->getRepository('BubbleDiagramBundle:Zone')->findByBuilding($building);
 
         return $this->render('zone/index.html.twig', array(
@@ -61,6 +61,7 @@ class ZoneController extends Controller {
 
         return $this->render('zone/new.html.twig', array(
                     'building' => $building,
+                    'building_id' => $building_id,
                     'zone' => $zone,
                     'form' => $form->createView(),
         ));
@@ -72,10 +73,14 @@ class ZoneController extends Controller {
      * @Route("/{id}", name="zone_show")
      * @Method("GET")
      */
-    public function showAction(Zone $zone) {
+    public function showAction(Zone $zone, $building_id) {
 
+        $em = $this->getDoctrine()->getManager();
+        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($building_id);
         return $this->render('zone/show.html.twig', array(
-                    'zone' => $zone
+                    'zone' => $zone,
+                    'building' => $building,
+                    'building_id' => $building_id,
         ));
     }
 

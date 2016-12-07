@@ -9,9 +9,16 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <form action="{{ path('level_new', {'building_id': building.id}) }}" method="POST" novalidate="novalidate">
+
+        {{ form_row(form.name, {'label': 'Nazwa'}) }}
+        {{ form_row(form.description, {'label': 'Opis'}) }}
+        {{ form_row(form.color, {'label': 'Kolor'}) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Utwórz" class="btn btn-primary btn-lg btn-block" />
+
+    </form>
 
 {% endblock %}

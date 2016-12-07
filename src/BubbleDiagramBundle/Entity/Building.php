@@ -76,7 +76,7 @@ class Building {
 
     /**
      * @ORM\OneToOne(targetEntity="Team", inversedBy="building")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=false, unique=true)
      */
     private $team;
 

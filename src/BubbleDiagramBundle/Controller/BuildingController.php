@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Building controller.
@@ -23,12 +24,10 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
         $teamId = $building->getTeam();
-        dump($teamId);
-        die();
+
         $team = $em->getRepository("BubbleDiagramBundle:Team")->find($teamId);
-        //$teamUsers = $team->getUsers();
-        dump($team);
-        die();
+        $teamUsers = $team->getUsers();
+
         if ($teamUsers != null) {
             foreach ($teamUsers as $user) {
                 if ($user->getId() != $currentUserId) {
@@ -107,9 +106,9 @@ class BuildingController extends Controller {
      */
     public function editAction(Request $request, Building $building, $id) {
 
-//        if ($this->checkCurrentUser($id) == false) {
-//            return new Response("Nie masz uprawnień!");
-//        }
+        if ($this->checkCurrentUser($id) == false) {
+            return new Response("Nie masz uprawnień!");
+        }
 
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);
@@ -135,6 +134,10 @@ class BuildingController extends Controller {
      */
     public function deleteAction($id) {
 
+        if ($this->checkCurrentUser($id) == false) {
+            return new Response("Nie masz uprawnień!");
+        }
+
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
         $em->remove($building);
@@ -145,22 +148,6 @@ class BuildingController extends Controller {
         return $this->redirectToRoute('building_index', array(
                     'buildings' => $buildings,
         ));
-    }
-
-    /**
-     * Creates a form to delete a building entity.
-     *
-     * @param Building $building The building entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Building $building) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('building_delete', array(
-                                    'id' => $building->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
     }
 
     /**

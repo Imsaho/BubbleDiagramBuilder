@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header %}Team{% endblock page_header %}
+{% block small_header %}szczegóły{% endblock small_header %}
+
 {% block body %}
 
     <div class="table-responsive">
@@ -10,6 +13,10 @@
                 <tr>
                     <th>Nazwa</th>
                     <td>{{ team.name }}</td>
+                </tr>
+                <tr>
+                    <th>Projekt</th>
+                    <td>{{ team.building }}</td>
                 </tr>
                 <tr>
                     <th>Użytkownicy</th>
@@ -30,10 +37,5 @@
 
     <a href="{{ path('team_edit', { 'id': team.id }) }}">Edit | </a>
 
-
-
-    {{ form_start(delete_form) }}
-    <input type="submit" value="Delete">
-    {{ form_end(delete_form) }}
 
 {% endblock %}

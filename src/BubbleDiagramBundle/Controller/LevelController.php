@@ -101,6 +101,7 @@ class LevelController extends Controller {
         return $this->render('level/edit.html.twig', array(
                     'level' => $level,
                     'edit_form' => $editForm->createView(),
+                    'building_id' => $building_id,
         ));
     }
 

@@ -63,7 +63,6 @@ class Team {
      */
     public function addUser(\BubbleDiagramBundle\Entity\User $users) {
         $this->users[] = $users;
-
         return $this;
     }
 

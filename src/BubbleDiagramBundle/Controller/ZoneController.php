@@ -100,7 +100,7 @@ class ZoneController extends Controller {
 
         return $this->render('zone/edit.html.twig', array(
                     'zone' => $zone,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 

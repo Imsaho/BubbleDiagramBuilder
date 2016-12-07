@@ -14,6 +14,7 @@
                         <th>Ilość kondygnacji</th>
                         <th>Współrzędne</th>
                         <th>Pomieszczenia</th>
+                        <th>Team</th>
 
                         <th></th>
                     </tr>
@@ -36,6 +37,10 @@
                                         <a href="{{ path('all_rooms_by_zone', { 'id': building.id }) }}">wg strefy</a>
                                     </li>
                                 </ul>
+                            </td>
+                            
+                            <td>
+                                {{ building.team.name }}
                             </td>
 
                             <td>

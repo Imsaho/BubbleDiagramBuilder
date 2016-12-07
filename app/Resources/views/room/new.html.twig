@@ -10,14 +10,28 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Dodaj" />
-    {{ form_end(form) }}
+    <form action="{{ path('room_new', {'building_id': building_id}) }}" method="POST" novalidate="novalidate">
 
-    <ul>
-        <li>
-            <a href="{{ path('room_index', { 'building_id': building_id }) }}">Back to the list</a>
-        </li>
-    </ul>
+        {{ form_row(form.number, {'label': 'Numer'}) }}
+        {{ form_row(form.name, {'label': 'Nazwa'}) }}
+        {{ form_row(form.area, {'label': 'Powierzchnia'}) }}
+        {{ form_row(form.minHeight, {'label': 'Minimalna wysokość'}) }}
+        {{ form_row(form.maxPersonAmount, {'label': 'Ilość osób w pomieszczeniu'}) }}
+        {{ form_row(form.accessControl, {'label': 'Kontrola dostępu'}) }}
+        {{ form_row(form.level, {'label': 'Kondygnacja'}) }}
+        {{ form_row(form.zone, {'label': 'Strefa'}) }}
+        {{ form_row(form.requirements, {'label': 'Wymagania / opcjonalnie'}) }}
+        {{ form_row(form.description, {'label': 'Opis'}) }}
+        {{ form_row(form.myRooms, {'label': 'Połączone z pomieszczeniami:'}) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Utwórz" class="btn btn-primary btn-lg btn-block" />
+
+    </form>
+
+    <br/>
+
+    <a href="{{ path('room_index', { 'building_id': building_id }) }}" class="btn btn-lg">Powrót do listy</a>
+
 {% endblock %}

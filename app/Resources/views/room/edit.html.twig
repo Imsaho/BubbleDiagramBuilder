@@ -10,15 +10,28 @@
 
 {% block body %}
 
-    {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <form action="{{ path('room_edit', {'id': room.id, 'building_id': building_id}) }}" method="POST" novalidate="novalidate">
 
-    <ul>
-        <li>
-            <a href="{{ path('room_index', {'building_id': building_id}) }}">Back to the list</a>
-        </li>
+        {{ form_row(edit_form.number, {'label': 'Numer'}) }}
+        {{ form_row(edit_form.name, {'label': 'Nazwa'}) }}
+        {{ form_row(edit_form.area, {'label': 'Powierzchnia'}) }}
+        {{ form_row(edit_form.minHeight, {'label': 'Minimalna wysokość'}) }}
+        {{ form_row(edit_form.maxPersonAmount, {'label': 'Ilość osób w pomieszczeniu'}) }}
+        {{ form_row(edit_form.accessControl, {'label': 'Kontrola dostępu'}) }}
+        {{ form_row(edit_form.level, {'label': 'Kondygnacja'}) }}
+        {{ form_row(edit_form.zone, {'label': 'Strefa'}) }}
+        {{ form_row(edit_form.requirements, {'label': 'Wymagania / opcjonalnie'}) }}
+        {{ form_row(edit_form.description, {'label': 'Opis'}) }}
+        {{ form_row(edit_form.myRooms, {'label': 'Połączone z pomieszczeniami:'}) }}
 
-    </ul>
+        {{ form_rest(edit_form) }}
+
+        <input type="submit" value="Utwórz" class="btn btn-primary btn-lg btn-block" />
+
+    </form>
+
+    <br/>
+
+    <a href="{{ path('room_index', {'building_id': building_id}) }}" class="btn btn-lg">Powrót do listy</a>
+
 {% endblock %}

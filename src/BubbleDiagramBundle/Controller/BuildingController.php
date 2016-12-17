@@ -9,6 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  * Building controller.
@@ -51,6 +54,11 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $buildings = $em->getRepository('BubbleDiagramBundle:Building')->findAll();
+
+//        $this->denyAccessUnlessGranted('view', $buildings);
+
+
+
         return $this->render('building/index.html.twig', array(
                     'buildings' => $buildings,
         ));
@@ -93,6 +101,10 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
 
+        if (false === $this->getUser()->isGranted('view', $building)) {
+            throw new AccessDeniedException('Unathorized access!');
+        }
+
         return $this->render('building/show.html.twig', array(
                     'building' => $building,
         ));
@@ -105,10 +117,6 @@ class BuildingController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Building $building, $id) {
-
-        if ($this->checkCurrentUser($id) == false) {
-            return new Response("Nie masz uprawnień!");
-        }
 
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);

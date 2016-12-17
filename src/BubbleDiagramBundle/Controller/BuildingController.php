@@ -8,10 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Response;
-//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  * Building controller.
@@ -30,10 +27,6 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $buildings = $em->getRepository('BubbleDiagramBundle:Building')->findAll();
-
-//        $this->denyAccessUnlessGranted('view', $buildings);
-
-
 
         return $this->render('building/index.html.twig', array(
                     'buildings' => $buildings,

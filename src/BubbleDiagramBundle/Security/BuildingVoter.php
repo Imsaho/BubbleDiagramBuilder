@@ -5,7 +5,6 @@ use BubbleDiagramBundle\Entity\Building;
 use BubbleDiagramBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use BubbleDiagramBundle\Entity\Team;
 
 class BuildingVoter extends Voter {
     
@@ -55,7 +54,6 @@ class BuildingVoter extends Voter {
     
     private function canEdit(Building $building, User $user) {
         
-//        return $user === $building->getTeam()->getUsers();
         return in_array($user, $building->getTeam()->getUsers()->getValues());
     }
 

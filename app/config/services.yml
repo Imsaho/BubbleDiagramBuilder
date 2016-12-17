@@ -4,6 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.post_voter:
+        class: BubbleDiagramBundle\Security\BuildingVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

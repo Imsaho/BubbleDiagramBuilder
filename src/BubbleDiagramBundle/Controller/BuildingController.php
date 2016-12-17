@@ -17,30 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BuildingController extends Controller {
 
-    private function checkCurrentUser($id) {
-        $currentUser = $this->getUser();
-        $currentUserId = $currentUser->getId();
-
-        $em = $this->getDoctrine()->getManager();
-        $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
-        $teamId = $building->getTeam();
-
-        $team = $em->getRepository("BubbleDiagramBundle:Team")->find($teamId);
-        $teamUsers = $team->getUsers();
-
-        if ($teamUsers != null) {
-            foreach ($teamUsers as $user) {
-                if ($user->getId() != $currentUserId) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Lists all building entities.
      *
@@ -89,7 +65,7 @@ class BuildingController extends Controller {
      * @Method("GET")
      */
     public function showAction($id) {
-
+        
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
 
@@ -105,11 +81,7 @@ class BuildingController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Building $building, $id) {
-
-        if ($this->checkCurrentUser($id) == false) {
-            return new Response("Nie masz uprawnień!");
-        }
-
+        $this->denyAccessUnlessGranted('edit', $building);
         $editForm = $this->createForm('BubbleDiagramBundle\Form\BuildingType', $building);
         $editForm->handleRequest($request);
 
@@ -133,10 +105,6 @@ class BuildingController extends Controller {
      * @Route("/delete/{id}", name="building_delete")
      */
     public function deleteAction($id) {
-
-        if ($this->checkCurrentUser($id) == false) {
-            return new Response("Nie masz uprawnień!");
-        }
 
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);

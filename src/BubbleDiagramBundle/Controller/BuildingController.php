@@ -69,10 +69,6 @@ class BuildingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $building = $em->getRepository("BubbleDiagramBundle:Building")->find($id);
 
-        if (false === $this->getUser()->isGranted('view', $building)) {
-            throw new AccessDeniedException('Unathorized access!');
-        }
-
         return $this->render('building/show.html.twig', array(
                     'building' => $building,
         ));

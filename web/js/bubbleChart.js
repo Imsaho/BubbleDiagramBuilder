@@ -1,27 +1,42 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // dodac warunek if(canvas.getContext())) !!!
     var canvas = document.getElementById("chart");
-    var cxt = canvas.getContext("2d");
+    if (canvas.getContext("2d")) {
+        var cxt = canvas.getContext("2d");
+        cxt.globalAlpha = 0.8;
 
-    cxt.fillStyle = "green";
-    cxt.fillRect(10, 10, 100, 100);
+        var chartItems = document.querySelectorAll('tr[data-chart="true"]');
 
-    var zones = document.getElementsByTagName("tr");
-    console.log(zones);
+        var allItemsData = [];
+        for (var i = 0; i < chartItems.length; i++) {
+            allItemsData.push(chartItems[i].dataset);
+        }
+        console.log(allItemsData);
 
-    var numberOfSides = 6,
-            size = 20,
-            Xcenter = 300,
-            Ycenter = 300;
+        var numberOfSides = chartItems.length,
+                size = 120,
+                Xcenter = 300,
+                Ycenter = 250;
 
-    cxt.beginPath();
-    cxt.moveTo(Xcenter + size * Math.cos(0),
-            Ycenter + size * Math.sin(0));
-    
-    for (var i=1; i<=numberOfSides; i++) {
-        cxt.lineTo(Xcenter + size*Math.cos(i*2*Math.PI/numberOfSides),
-            Ycenter + size*Math.sin(i*2*Math.PI/numberOfSides));
+        cxt.moveTo(Xcenter + size * Math.cos(0),
+                Ycenter + size * Math.sin(0));
+
+        for (var i = 1; i <= numberOfSides; i++) {
+            
+            cxt.beginPath();
+            cxt.fillStyle = allItemsData[i-1]["color"];
+//            console.log(cxt.fillStyle);
+            
+            cxt.moveTo(Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides),
+                    Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides));
+
+            cxt.arc(Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides),
+                    Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides), 100, 0, 2 * Math.PI);
+            cxt.fill();
+        }
+
+        cxt.strokeStyle = "red";
+        cxt.lineWidth = 1;
     }
 });

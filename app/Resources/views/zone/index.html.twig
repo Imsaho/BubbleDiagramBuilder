@@ -9,6 +9,12 @@
 
 {% block body %}
 
+    <div class="col-lg-12" align="center">
+        <canvas id="chart" width="1500" height="500">
+            Twoja przeglądarka nie obsługuje HTML5. Niektóre elementy mogą być niewidoczne.
+        </canvas>
+    </div>
+
     <div class="col-lg-12">
         <div class="table-responsive">
             {% if (zones | length) == 0 %}
@@ -30,11 +36,11 @@
                     <tbody>
 
                         {% for zone in zones %}
-                            <tr>
+                            <tr data-chart="true" data-name="{{ zone.name }}" data-color="{{ zone.color }}" data-area="{{ zone.calculateZoneNBA() }}">
 
                                 <td>{{ zone.name }}</td>
 
-                                <td bgcolor="{{ zone.color }}"></td>
+                                <td style="background-color:{{ zone.color }}"></td>
                                 <td>{{ zone.calculateZoneNBA() }} m<sup>2</sup></td>
                                 <td>{{ zone.calculatePeopleInZone() }}</td>
                                 <td>
@@ -67,10 +73,6 @@
     </div>
 
     <a href="{{ path('zone_new', {'building_id': building_id}) }}">Dodaj nową strefę</a>
-    <div class="col-lg-12" align="center">
-        <canvas id="chart" width="1500" height="500">
-            Twoja przeglądarka nie obsługuje HTML5. Niektóre elementy mogą być niewidoczne.
-        </canvas>
-    </div>
+
 
 {% endblock %}

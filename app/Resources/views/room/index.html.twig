@@ -44,7 +44,7 @@
                         <td>{{ room.number }}</td>
                         <td>{{ room.level.name }}</td>
                         {% if room.zone.color is defined %}
-                            <td bgcolor="{{ room.zone.color }}"></td>
+                            <td style="background-color:{{ room.zone.color }}"></td>
                         {% else %}
                             <td></td>
                         {% endif %}

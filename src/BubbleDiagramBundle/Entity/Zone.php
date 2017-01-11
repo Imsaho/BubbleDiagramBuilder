@@ -44,8 +44,8 @@ class Zone {
      *
      * @ORM\Column(name="color", type="string", length=16, unique=false)
      * @Assert\NotBlank (message="Wybierz kolor")
-     * @Assert\Regex (pattern="/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
-     *                                  message="Kolor w formacie szesnastkowym, np. #a5bf4a")
+     * @Assert\Regex (pattern="/rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/",
+     *                                  message="Kolor w formacie rgb, np. rgb(165,191,74)")
      */
     private $color;
 

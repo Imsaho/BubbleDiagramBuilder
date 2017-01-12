@@ -10,18 +10,15 @@ document.addEventListener("DOMContentLoaded", function () {
         for (var i = 1; i <= numberOfSides; i++) {
 
             var radius = Math.sqrt(allItemsData[i - 1]["chartArea"] / Math.PI) * 35;
-            var info = allItemsData[i - 1]["name"];
+            var info = allItemsData[i - 1]["name"] + " - " + allItemsData[i - 1]["area"] + (' m\xB2');
 
             paper.circle(Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides),
                     Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides), radius)
                     .attr({fill: allItemsData[i - 1]["color"], stroke: "none", opacity: 0.85})
-                    .data("name", allItemsData[i-1]["name"])
-                    .data("area", allItemsData[i-1]["area"])
-                    .click(function () {
-
-                        console.log(this.data("name") + ", "
-                + this.data("area") + (' m\xB2'));
-                    });
+                    .data("name", allItemsData[i - 1]["name"])
+                    .data("area", allItemsData[i - 1]["area"])
+                    .data("toggle", "tooltip")
+                    .attr("title", info);
         }
     }
 
@@ -39,11 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         allItemsData[i]['chartArea'] = allItemsData[i]['area'] / totalArea * 100;
     }
 
-    console.log(allItemsData);
-
     var numberOfSides = chartItems.length,
             size = 170,
-            Xcenter = 300,
+            Xcenter = 400,
             Ycenter = 300;
 
     drawBubbleChart(numberOfSides, size, Xcenter, Ycenter, allItemsData);
